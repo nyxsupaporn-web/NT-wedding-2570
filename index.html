@@ -177,12 +177,12 @@ body{background:var(--paper)!important}
 #intro.card-rising .env-insert{transform:translateY(-18%);opacity:1;z-index:12;transition:transform 1.75s cubic-bezier(.18,.8,.22,1)}
 #intro.card-zoom .env-insert{transform:translateY(-24%) scale(1.42);opacity:1;z-index:15;transition:transform 1.95s cubic-bezier(.2,.7,.25,1),opacity .3s ease}
 #intro .petal{background:radial-gradient(circle at 30% 20%,#fff,#fffefb 64%,#efe4dd)}
-#intro[data-env-style="classic"] .env-back,#intro[data-env-style="classic"] .env-door{background:#223326}
-#intro[data-env-style="sage"] .env-back,#intro[data-env-style="sage"] .env-door{background:linear-gradient(180deg,#6f826c,#879c84)}
-#intro[data-env-style="ivory"] .env-back,#intro[data-env-style="ivory"] .env-door{background:linear-gradient(180deg,#f7f2e8,#ece1cd);border-color:#d2c4ad}
-#intro[data-env-style="blush"] .env-back,#intro[data-env-style="blush"] .env-door{background:linear-gradient(180deg,#d5bbb8,#ead8d6)}
-#intro[data-env-style="mist"] .env-back,#intro[data-env-style="mist"] .env-door{background:linear-gradient(180deg,#8e9da2,#c6d1d2)}
-#intro[data-env-style="olive"] .env-back,#intro[data-env-style="olive"] .env-door{background:linear-gradient(180deg,#657046,#889668)}
+#intro[data-env-style="classic"] .env-back,#intro[data-env-style="classic"] .env-door{background:var(--envelope)}
+#intro[data-env-style="sage"] .env-back,#intro[data-env-style="sage"] .env-door{background:linear-gradient(180deg,color-mix(in srgb,var(--envelope) 40%,#6f826c),color-mix(in srgb,var(--envelope) 40%,#879c84))}
+#intro[data-env-style="ivory"] .env-back,#intro[data-env-style="ivory"] .env-door{background:linear-gradient(180deg,color-mix(in srgb,var(--envelope) 15%,#f7f2e8),color-mix(in srgb,var(--envelope) 15%,#ece1cd));border-color:#d2c4ad}
+#intro[data-env-style="blush"] .env-back,#intro[data-env-style="blush"] .env-door{background:linear-gradient(180deg,color-mix(in srgb,var(--envelope) 22%,#d5bbb8),color-mix(in srgb,var(--envelope) 22%,#ead8d6))}
+#intro[data-env-style="mist"] .env-back,#intro[data-env-style="mist"] .env-door{background:linear-gradient(180deg,color-mix(in srgb,var(--envelope) 25%,#8e9da2),color-mix(in srgb,var(--envelope) 25%,#c6d1d2))}
+#intro[data-env-style="olive"] .env-back,#intro[data-env-style="olive"] .env-door{background:linear-gradient(180deg,color-mix(in srgb,var(--envelope) 34%,#657046),color-mix(in srgb,var(--envelope) 34%,#889668))}
 #intro[data-env-style="border"] .env-back,#intro[data-env-style="border"] .env-door{background:#f6f3ea;border:2px solid color-mix(in srgb,var(--accent) 60%,#c9bda7)}
 #intro[data-env-style="monogram"] .env-back,#intro[data-env-style="monogram"] .env-door{background:linear-gradient(180deg,#edf0e7,#dde4d9);border:1px solid #c8cdbd}
 #intro[data-env-style="frame"] .env-back,#intro[data-env-style="frame"] .env-door{background:linear-gradient(180deg,#fdfaf6,#eff2e8);border:1px solid #d4d9c5}
@@ -217,6 +217,37 @@ body{background:var(--paper)!important}
 .gallery-stage.rounded{border-radius:30px}.gallery-stage.soft{border-radius:26px;box-shadow:0 12px 30px #8c977d18}.gallery-stage.polaroid{background:#fff;padding:14px 14px 42px;border-radius:10px;box-shadow:0 16px 26px #4b524513}.gallery-stage.cinema{aspect-ratio:16/9;border-radius:20px;background:#111}.gallery-stage.cinema .gallery-item:after{background:linear-gradient(180deg,transparent 30%,#00000066)}
 .editor-foot button{white-space:nowrap}
 @media(max-width:420px){.venue-card.split{grid-template-columns:1fr}.mainbar .heart-menu-toggle{font-size:38px}.profiles .microhead{font-size:14px}}
+
+
+/* V6.1 · bow falls as a complete satin ribbon, never cut into two halves */
+#intro .bow-color-left{opacity:.37!important}
+#intro .bow-photo-stage{opacity:1;will-change:transform,opacity;transform-origin:50% 18%}
+#intro .bow-left,#intro .bow-color-left{clip-path:none!important}
+#intro .bow-right,#intro .bow-color-right{display:none!important}
+#intro.untying .bow-left,#intro.untying .bow-color-left{transform:none!important;opacity:1}
+#intro.untying .bow-photo-stage{animation:fullBowFall 3.48s cubic-bezier(.26,.03,.55,1) both}
+@keyframes fullBowFall{
+  0%{transform:translateY(0) rotate(0deg) scale(var(--bow-size,1));opacity:1}
+  15%{transform:translateY(2%) rotate(-2deg) scale(calc(var(--bow-size,1) * .98));opacity:1}
+  35%{transform:translateY(12%) rotate(3deg) scale(calc(var(--bow-size,1) * .96));opacity:1}
+  64%{opacity:1}
+  100%{transform:translateY(105dvh) rotate(19deg) scale(.90);opacity:0}
+}
+#intro[data-bow-style="satin"]{--bow-size:1}
+#intro[data-bow-style="silk"]{--bow-size:.94}
+#intro[data-bow-style="grand"]{--bow-size:1.08}
+#intro[data-bow-style="slim"]{--bow-size:.84}
+#intro[data-bow-style="pearl"]{--bow-size:.97}
+#intro[data-bow-style="airy"]{--bow-size:.91}
+#intro[data-bow-style="layered"]{--bow-size:1.03}
+#intro[data-bow-style="velvet"]{--bow-size:.95}
+#intro[data-bow-style="petal"]{--bow-size:1.02}
+#intro[data-bow-style="double"]{--bow-size:1.09}
+#intro .env-stage{overflow:visible}
+#intro.card-ready .env-insert{outline:1px solid #eee5d5}
+@media(prefers-reduced-motion:reduce){
+ #intro.untying .bow-photo-stage{animation-duration:3.48s}
+}
 
 </style>
 </head>
@@ -306,12 +337,12 @@ const audio=$('bgAudio');function audioStart(){if(!data.music)return;audio.src=d
 $('musicToggle').onclick=()=>{if(!data.music){inform('เพิ่มเพลงจากเมนูแก้ไขก่อนค่ะ');return}if(audio.paused)audioStart();else{audio.pause();txt('musicToggle','▶');txt('songStatus','พักเพลงแล้ว')}};
 audio.addEventListener('timeupdate',()=>{$('musicProgress').style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%'});
 function finishIntro(){if(introTimer)clearTimeout(introTimer);const stage=$('intro');stage.classList.add('dismiss');document.body.classList.remove('locked');setTimeout(()=>{stage.style.display='none';stage.classList.remove('opening','untying','card-rising','card-zoom','card-ready','card-picked');$('introCardHint').hidden=true;$('introTip').hidden=false;stage.dataset.awaitTap='0';opening=false},700)}
-let opening=false;function openIntro(){if(opening)return;opening=true;const stage=$('intro');stage.dataset.awaitTap='0';stage.classList.add('untying');const petals=$('petals');petals.replaceChildren();for(let i=0;i<36;i++){const e=document.createElement('i');e.className='petal';const rad=(i*137.51)*Math.PI/180,dist=85+Math.random()*260;e.style.setProperty('--dx',Math.round(Math.cos(rad)*dist)+'px');e.style.setProperty('--dy',Math.round(Math.sin(rad)*dist-120)+'px');e.style.setProperty('--rot',Math.round((Math.random()-.5)*900)+'deg');e.style.setProperty('--delay',(2.95+Math.random()*.95)+'s');e.style.setProperty('--duration',(2.8+Math.random()*1.1)+'s');petals.append(e)}
+let opening=false;function openIntro(){if(opening)return;opening=true;const stage=$('intro');stage.dataset.awaitTap='0';stage.classList.add('untying');const petals=$('petals');petals.replaceChildren();for(let i=0;i<36;i++){const e=document.createElement('i');e.className='petal';const rad=(i*137.51)*Math.PI/180,dist=85+Math.random()*260;e.style.setProperty('--dx',Math.round(Math.cos(rad)*dist)+'px');e.style.setProperty('--dy',Math.round(Math.sin(rad)*dist-120)+'px');e.style.setProperty('--rot',Math.round((Math.random()-.5)*900)+'deg');e.style.setProperty('--delay',(3.9+Math.random()*.95)+'s');e.style.setProperty('--duration',(2.8+Math.random()*1.1)+'s');petals.append(e)}
   $('openBtn').disabled=true;$('introTip').textContent='กำลังเปิดคำเชิญ...';
-  setTimeout(()=>stage.classList.add('opening'),2300);
-  setTimeout(()=>stage.classList.add('card-rising'),6100);
-  setTimeout(()=>stage.classList.add('card-zoom'),8450);
-  introTimer=setTimeout(()=>{stage.classList.add('card-ready');stage.dataset.awaitTap='1';$('introTip').hidden=true;$('introCardHint').hidden=false;$('openBtn').disabled=false},10450);
+  setTimeout(()=>stage.classList.add('opening'),3650);
+  setTimeout(()=>stage.classList.add('card-rising'),7700);
+  setTimeout(()=>stage.classList.add('card-zoom'),10000);
+  introTimer=setTimeout(()=>{stage.classList.add('card-ready');stage.dataset.awaitTap='1';$('introTip').hidden=true;$('introCardHint').hidden=false;$('openBtn').disabled=false},12200);
  }
 function finishIntroFromCard(){const stage=$('intro');if(stage.dataset.awaitTap!=='1')return;stage.dataset.awaitTap='2';$('introCardHint').textContent='กำลังเข้าสู่รายละเอียด...';audioStart();stage.classList.add('card-picked');setTimeout(finishIntro,520)}
 $('openBtn').onclick=openIntro;$('envelopeTap').onclick=openIntro;$('envelopeTap').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openIntro()}};$('envelopeTap').querySelector('.env-insert').addEventListener('click',e=>{if($('intro').dataset.awaitTap==='1'){e.stopPropagation();finishIntroFromCard()}});
