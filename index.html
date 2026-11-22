@@ -535,7 +535,8 @@ const txt=(id,value)=>{if($(id))$(id).textContent=value??''};
 const safe=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clone=x=>JSON.parse(JSON.stringify(x));
 const q=new URLSearchParams(location.search);
-try{const str=localStorage.getItem('nt_wedding_v5_draft');if(str){const delta=JSON.parse(str);if(delta&&delta.__diff==='v5'){const {__diff,...patch}=delta;data={...base,...patch,settings:{...base.settings,...(patch.settings||{})},details:{...base.details,...(patch.details||{})},colors:{...base.colors,...(patch.colors||{})},images:{...base.images,...(patch.images||{})}};draft=true}else if(delta&&delta.settings){data=delta;draft=true}}}catch(e){}
+// Only the owner editing URL may restore a local draft. Public guest visits always use published data.
+if(q.has('edit'))try{const str=localStorage.getItem('nt_wedding_v5_draft');if(str){const delta=JSON.parse(str);if(delta&&delta.__diff==='v5'){const {__diff,...patch}=delta;data={...base,...patch,settings:{...base.settings,...(patch.settings||{})},details:{...base.details,...(patch.details||{})},colors:{...base.colors,...(patch.colors||{})},images:{...base.images,...(patch.images||{})}};draft=true}else if(delta&&delta.settings){data=delta;draft=true}}}catch(e){}
 data.settings={...base.settings,...data.settings};data.images={...base.images,...data.images};data.colors={...base.colors,...data.colors};
 const inform=(s)=>{const n=$('notice');n.textContent=s;n.classList.add('on');clearTimeout(n._timer);n._timer=setTimeout(()=>n.classList.remove('on'),3500)};
 // Large uploaded images must not rely on localStorage's small mobile quota.
@@ -595,7 +596,7 @@ async function restoreSavedDraft(){
  try{
   const saved=await readStoredDraft();
   if(saved&&saved.images&&saved.details){
-   if(saved.__baseMark && saved.__baseMark!==baseMark){const yes=confirm('เว็บออนไลน์เปลี่ยนจากครั้งที่คุณบันทึกฉบับร่างไว้\nกดตกลงเพื่อกู้ฉบับร่างในเครื่อง หรือยกเลิกเพื่อใช้เว็บที่เผยแพร่แล้ว');if(!yes)return;}
+   if(saved.__baseMark && saved.__baseMark!==baseMark){const yes=confirm('เว็บออนไลน์เปลี่ยนจากครั้งที่คุณบันทึกฉบับร่างไว้\nกดตกลงเพื่อกู้ฉบับร่างในเครื่อง หรือยกเลิกเพื่อใช้เว็บที่เผยแพร่แล้ว');if(!yes){data=clone(base);draft=false;return;}}
    data={...base,...saved,settings:{...base.settings,...(saved.settings||{})},details:{...base.details,...(saved.details||{})},colors:{...base.colors,...(saved.colors||{})},images:{...base.images,...(saved.images||{})}};
    draft=true;
   }else if(draft){await commitDraft()} // import old localStorage edits, if any
@@ -740,7 +741,9 @@ function installPageMotion(){
  }));
 }
 async function boot(){
- await restoreSavedDraft();render();installPageMotion();window.setInterval(countdown,1000);
+ // Never show draft conflicts to guests. Use the embedded published design unless editing.
+ if(q.has('edit'))await restoreSavedDraft();
+ render();installPageMotion();window.setInterval(countdown,1000);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)countdown();else if(saveTimer)commitDraft().catch(()=>{})});
  if(q.has('edit'))setTimeout(()=>{editorOpen();try{history.replaceState({},'',location.pathname+location.hash)}catch(e){}},250);
 }
