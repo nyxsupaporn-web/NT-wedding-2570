@@ -302,7 +302,7 @@ body{background:var(--paper)!important}
  .editor-foot #previewBtn{grid-column:3;grid-row:2}
 }
 
-/* NT Wedding 6.3 refinements */
+/* NT Wedding 6.3 refinements; V6.9 saved draft persistence */
 img[data-img]:not([src]){display:none!important}
 
 :root{--font-en:'Cormorant Garamond',serif;--font-th:'Noto Serif Thai',serif}
@@ -653,7 +653,7 @@ body{font-family:var(--font-th),'Noto Sans Thai',sans-serif}
 <footer class="footer"><img class="footer-corner footer-corner-left" data-img="footerLeft" alt="ภาพตกแต่งมุมล่างซ้าย"><img class="footer-corner footer-corner-right" data-img="footerRight" alt="ภาพตกแต่งมุมล่างขวา"><div class="replaceable-decoration"><img data-img="footerDivider" alt="ลายตกแต่งท้ายการ์ด"></div><img class="footer-logo" data-img="logo" alt="โลโก้ NT"><p id="apologyThai">ขออภัยหากมิได้เรียนเชิญด้วยตัวเอง</p><p class="en-apology" id="apologyEnglish">We apologize if we cannot invite you in person.</p></footer>
 </div>
 <div class="lightbox" id="lightbox"><button class="lightbox-close" id="lightClose" aria-label="ปิดรูปภาพ">×</button><img id="lightPhoto" alt="ภาพแกลเลอรี่ที่ขยายแล้ว"><div class="lightbox-arrows"><button id="lightPrev">‹</button><span id="lightLabel"></span><button id="lightNext">›</button></div></div>
-<div class="editor-overlay" id="editorOverlay"><div class="editor" role="dialog" aria-modal="true" aria-label="แก้ไขเว็บไซต์การ์ดแต่งงาน"><div class="editor-head"><div><h2>✎ ปรับแต่งการ์ดแต่งงาน</h2><small>บันทึกฉบับร่าง = เฉพาะเครื่องนี้ · เผยแพร่ = ดาวน์โหลด HTML ไปอัปโหลด GitHub</small></div><button id="closeEditor" type="button" aria-label="ปิดหน้าแก้ไข">×</button></div><div class="tabs" id="editorTabs"></div><div class="editor-body" id="editorBody"></div><div class="publish-help">ส่งลิงก์ให้แขกแล้วไม่เห็นรูปใหม่? ต้องกด “ส่งออก index.html เพื่อเผยแพร่” แล้วอัปโหลดไฟล์ทับ <b>index.html</b> เดิมใน GitHub ก่อน แขกทุกเครื่องจึงจะเห็นข้อมูลเดียวกัน</div><div class="editor-foot"><button class="closebtn" type="button" id="restoreBtn">คืนค่า</button><button class="closebtn" type="button" id="saveDraftBtn">บันทึก</button><button class="closebtn" type="button" id="previewBtn">ดูตัวอย่าง</button><button class="download" type="button" id="exportBtn">↓ ส่งออก index.html เพื่อเผยแพร่</button></div></div></div>
+<div class="editor-overlay" id="editorOverlay"><div class="editor" role="dialog" aria-modal="true" aria-label="แก้ไขเว็บไซต์การ์ดแต่งงาน"><div class="editor-head"><div><h2>✎ ปรับแต่งการ์ดแต่งงาน</h2><small>บันทึกฉบับร่าง = เฉพาะเครื่องนี้ · รีเฟรชได้เมื่อมี ?edit=1 · เผยแพร่ = ดาวน์โหลด HTML ไปอัปโหลด GitHub</small></div><button id="closeEditor" type="button" aria-label="ปิดหน้าแก้ไข">×</button></div><div class="tabs" id="editorTabs"></div><div class="editor-body" id="editorBody"></div><div class="publish-help">ส่งลิงก์ให้แขกแล้วไม่เห็นรูปใหม่? ต้องกด “ส่งออก index.html เพื่อเผยแพร่” แล้วอัปโหลดไฟล์ทับ <b>index.html</b> เดิมใน GitHub ก่อน แขกทุกเครื่องจึงจะเห็นข้อมูลเดียวกัน</div><div class="editor-foot"><button class="closebtn" type="button" id="restoreBtn">คืนค่า</button><button class="closebtn" type="button" id="saveDraftBtn">บันทึก</button><button class="closebtn" type="button" id="previewBtn">ดูตัวอย่าง</button><button class="download" type="button" id="exportBtn">↓ ส่งออก index.html เพื่อเผยแพร่</button></div></div></div>
 <form id="wishTransport" method="POST" target="wishResultFrame" style="display:none"><input type="hidden" name="name"><input type="hidden" name="message"><input type="hidden" name="website"></form><iframe name="wishResultFrame" style="display:none" title="ผลบันทึกคำอวยพร"></iframe>
 <div class="notice" role="status" id="notice"></div>
 <audio id="bgAudio" playsinline loop preload="auto"></audio>
@@ -673,7 +673,7 @@ data.settings={...base.settings,...data.settings};data.images={...base.images,..
 const inform=(s)=>{const n=$('notice');n.textContent=s;n.classList.add('on');clearTimeout(n._timer);n._timer=setTimeout(()=>n.classList.remove('on'),3500)};
 // Large uploaded images must not rely on localStorage's small mobile quota.
 // Existing V5/V6 localStorage changes were loaded above, and are migrated on first launch.
-let dbPromise=null, saveTimer=null, saveChain=Promise.resolve(), storeErrorShown=false;
+let dbPromise=null, saveTimer=null, saveChain=Promise.resolve(), storeErrorShown=false, draftLoadedForSession=false;
 const draftKey='nt-wedding-current';const baseMark=(()=>{let h=2166136261,raw=cfgNode.textContent;for(let i=0;i<raw.length;i++){h^=raw.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(16)})();
 function openDraftDatabase(){
  if(!('indexedDB' in window))return Promise.reject(new Error('IndexedDB not supported'));
@@ -705,10 +705,36 @@ async function writeStoredDraft(snapshot){
   tx.onabort=()=>reject(tx.error||new Error('Save aborted'));
  });
 }
+// Keep only edits rather than re-saving all bundled 8-12 MB of default artwork.
+// This makes saving much faster on Safari and reduces storage/quota failures.
+function makeDraftSnapshot(){
+ const changed={__draftMode:'delta-v69',__baseMark:baseMark};
+ for(const [k,value] of Object.entries(data)){
+  if(['images','details','settings','colors'].includes(k)){
+   const diff={};
+   for(const [name,item] of Object.entries(value||{})){
+    if(item !== base[k]?.[name])diff[name]=item;
+   }
+   if(Object.keys(diff).length)changed[k]=diff;
+  }else if(value!==base[k]&&JSON.stringify(value)!==JSON.stringify(base[k]))changed[k]=value;
+ }
+ return changed;
+}
+function applySavedSnapshot(saved){
+ const isDelta=saved.__draftMode==='delta-v69';
+ const merged={...base,...saved};
+ for(const k of ['settings','details','colors','images']){
+  merged[k]={...base[k],...(saved[k]||{})};
+ }
+ // A delta contains only changed fields; legacy snapshots contain whole sections.
+ // Both are re-applied over the CURRENT published version, preserving newly added defaults.
+ delete merged.__draftMode;delete merged.__baseMark;
+ return merged;
+}
 function commitDraft(){
  clearTimeout(saveTimer);saveTimer=null;
- // Snapshot at click time; serialize transactions so an older save cannot overwrite a newer one.
- const snapshot=clone(data);snapshot.__baseMark=baseMark;
+ // Serialize transactions so older delayed autosaves never overwrite the latest click.
+ const snapshot=makeDraftSnapshot();
  saveChain=saveChain.catch(()=>{}).then(()=>writeStoredDraft(snapshot));
  return saveChain;
 }
@@ -720,16 +746,16 @@ function persist(){
 }
 async function saveDraftAction(){
  const button=$('saveDraftBtn');button.disabled=true;button.textContent='กำลังบันทึก…';
- try{await commitDraft();storeErrorShown=false;inform('บันทึกฉบับร่างบนเครื่องนี้แล้ว · ต้องส่งออก index.html และอัปโหลด GitHub เพื่อให้แขกทุกคนเห็น')}
+ try{await commitDraft();storeErrorShown=false;inform('บันทึกฉบับร่างสำเร็จ ✓ รีเฟรชในโหมดเจ้าภาพได้ · ต้องอัปโหลด HTML เพื่อเผยแพร่')}
  catch(e){inform('บันทึกในเครื่องไม่ได้ กรุณากดบันทึก index.html เพื่อเก็บรูปไว้');console.warn('Draft save failure:',e)}
  finally{button.disabled=false;button.textContent='บันทึก'}
 }
 async function restoreSavedDraft(){
  try{
   const saved=await readStoredDraft();
-  if(saved&&saved.images&&saved.details){
+  if(saved&&(saved.__draftMode==='delta-v69'||(saved.images&&saved.details))){
    if(saved.__baseMark && saved.__baseMark!==baseMark){const yes=confirm('เว็บออนไลน์เปลี่ยนจากครั้งที่คุณบันทึกฉบับร่างไว้\nกดตกลงเพื่อกู้ฉบับร่างในเครื่อง หรือยกเลิกเพื่อใช้เว็บที่เผยแพร่แล้ว');if(!yes){data=clone(base);draft=false;return;}}
-   data={...base,...saved,settings:{...base.settings,...(saved.settings||{})},details:{...base.details,...(saved.details||{})},colors:{...base.colors,...(saved.colors||{})},images:{...base.images,...(saved.images||{})}};
+   data=applySavedSnapshot(saved);
    draft=true;
   }else if(draft){await commitDraft()} // import old localStorage edits, if any
  }catch(e){console.warn('Using current/legacy draft without IndexedDB:',e)}
@@ -972,9 +998,20 @@ $('allWishes').onclick=()=>{galleryAll=!galleryAll;renderWishes()};
 $('wishForm').onsubmit=e=>{e.preventDefault();let endpoint=data.details.wishesEndpoint;if(!endpoint){inform('ต้องเชื่อมต่อ Google Sheets / Apps Script ก่อนเปิดรับคำอวยพร');return}const name=$('wishName').value.trim(),msg=$('wishMessage').value.trim();if(name.length<2||!msg){inform('กรุณากรอกชื่อและคำอวยพร');return}const f=$('wishTransport');f.action=endpoint;f.elements.namedItem('name').value=name;f.elements.namedItem('message').value=msg;f.elements.namedItem('website').value=$('hpField').value;f.submit();txt('wishStatus','ส่งคำอวยพรแล้ว กำลังตรวจสอบรายการที่บันทึก...');setTimeout(()=>{loadWishes();txt('wishStatus','หากยังไม่ปรากฏรายการ กรุณาลองโหลดหน้าเว็บใหม่')},2600);$('wishForm').reset()};
 // EDITOR — public guests cannot save to GitHub; only an owner who uploads the exported HTML can change live site.
 const tabs=[['intro','ซอง / สี'],['details','ข้อความ'],['images','รูป / โลโก้'],['timeline','พิธี'],['gallery','แกลเลอรี่'],['connections','ระบบ']];
-function editorOpen(){editing=true;$('editorOverlay').classList.add('show');document.body.classList.add('locked');drawEditor()}
+async function editorOpen(){
+ // Opening the editor on the public page must activate a persistent owner preview URL.
+ // V6.8 removed ?edit=1 on load, so refresh silently discarded the local draft.
+ if(!q.has('edit')){
+  q.set('edit','1');
+  try{history.replaceState({},'',location.pathname+'?'+q.toString()+location.hash)}catch(e){}
+ }
+ if(!draftLoadedForSession){
+  await restoreSavedDraft();draftLoadedForSession=true;render();
+ }
+ editing=true;$('editorOverlay').classList.add('show');document.body.classList.add('locked');drawEditor();
+}
 function editorClose(){editing=false;$('editorOverlay').classList.remove('show');document.body.classList.remove('locked')}
-$('editLink').onclick=e=>{e.preventDefault();editorOpen()};$('closeEditor').onclick=editorClose;$('previewBtn').onclick=editorClose;
+$('editLink').onclick=e=>{e.preventDefault();editorOpen().catch(err=>inform('โหลดฉบับร่างไม่ได้: '+err.message))};$('closeEditor').onclick=editorClose;$('previewBtn').onclick=editorClose;
 function field(path,label,type='text',extra=''){let v=get(path);v=v===undefined?'':v;let attr='data-path="'+safe(path)+'"';return `<div class="editor-field"><label>${safe(label)}</label>${type==='textarea'?`<textarea ${attr}>${safe(v)}</textarea>`:type==='select'?`<select ${attr}>${extra}</select>`:`<input ${attr} type="${type}" value="${safe(v)}" ${extra}>`}</div>`}
 function optionSet(path,opts){const value=get(path);return opts.map(([v,n])=>`<option value="${safe(v)}" ${value===v?'selected':''}>${safe(n)}</option>`).join('')}
 function get(path){return path.split('.').reduce((acc,k)=>acc?.[k],data)}
@@ -1061,10 +1098,10 @@ function installPageMotion(){
 async function boot(){
  // The published image is also present in the initial markup, so old envelope layers never flash.
  // Never show draft conflicts to guests. Use the embedded published design unless editing.
- if(q.has('edit'))await restoreSavedDraft();
+ if(q.has('edit')){await restoreSavedDraft();draftLoadedForSession=true}
  render();installPageMotion();installAmbientPetals();window.setInterval(countdown,1000);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)countdown();else if(saveTimer)commitDraft().catch(()=>{})});
- if(q.has('edit'))setTimeout(()=>{editorOpen();try{history.replaceState({},'',location.pathname+location.hash)}catch(e){}},250);
+ if(q.has('edit'))setTimeout(()=>{editorOpen()},250);
 }
 boot().catch(e=>{console.error('Loading error:',e);render();installPageMotion()});
 })();
