@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f9f8f4">
-<!-- NT Wedding V7.4: bow slip, centered divider, feathered crest and note-only music -->
+<!-- NT Wedding V7.5: preserves V7.4; raised crest feather, clean card, matched side panels -->
 <meta name="description" content="การ์ดเชิญงานมงคลสมรสและขึ้นบ้านใหม่ Nick & Toek · 15 พฤษภาคม 2570">
 <title>NICK & TOEK · Our Wedding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1032,6 +1032,69 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 @media(max-width:380px){.nt-floating-music{right:12px!important;bottom:calc(12px + env(safe-area-inset-bottom,0px))!important}.nt-music-bubble{width:40px!important;height:40px!important}}
 @media(prefers-reduced-motion:reduce){#intro[data-env-style="artwork"].nt-untie .nt-bow{animation-duration:.7s!important}.nt-music-bubble.playing svg{animation:none!important}}
 </style>
+
+<style id="nt-v75-targeted-fixes">
+/* V7.5: Two targeted visual corrections on top of the unchanged V7.4. */
+/* 1a. Extend the soft paper feathering UP to the crest's upper arch.
+   Keep the bottom boundary in the same region as V7.4; never cover corner flowers. */
+#intro[data-env-style="artwork"] .nt-crest-seam-veil{
+  left:25.5%!important;
+  top:0%!important;
+  width:49%!important;
+  height:50.6%!important;
+  background:
+    radial-gradient(ellipse 71% 78% at 50% 40%,
+      rgba(255,253,249,.985) 0%,
+      rgba(255,253,249,.973) 48%,
+      rgba(255,253,249,.68) 68%,
+      rgba(255,253,249,.16) 84%,
+      rgba(255,253,249,0) 100%),
+    radial-gradient(ellipse 58% 28% at 50% 80%,
+      rgba(255,253,249,.86) 0%,
+      rgba(255,253,249,.38) 49%,
+      transparent 100%)!important;
+  -webkit-mask-image:radial-gradient(ellipse 79% 85% at 50% 43%,
+    #000 0 57%,rgba(0,0,0,.69) 70%,transparent 100%)!important;
+  mask-image:radial-gradient(ellipse 79% 85% at 50% 43%,
+    #000 0 57%,rgba(0,0,0,.69) 70%,transparent 100%)!important;
+  opacity:1;
+  transition:opacity .65s ease!important;
+  pointer-events:none!important;
+}
+/* 1b. The feathering belongs ONLY to the unopened front, never to the card.
+   Higher specificity and important override the V7.4 base opacity:1. */
+#intro[data-env-style="artwork"].nt-flap .nt-crest-seam-veil,
+#intro[data-env-style="artwork"].nt-doors .nt-crest-seam-veil,
+#intro[data-env-style="artwork"].nt-card-reveal .nt-crest-seam-veil,
+#intro[data-env-style="artwork"].nt-card-zoom .nt-crest-seam-veil,
+#intro[data-env-style="artwork"].nt-card-ready .nt-crest-seam-veil{
+  opacity:0!important;
+}
+/* 2. Undo V7.4's unintended opacity:0 and 180deg flip on the RIGHT door.
+   Restore mirrored left/right hinged panels, including their paper backfaces. */
+#intro[data-env-style="artwork"] .nt-left-door,
+#intro[data-env-style="artwork"] .nt-right-door{
+  backface-visibility:visible!important;
+  -webkit-backface-visibility:visible!important;
+  clip-path:none!important;
+  -webkit-clip-path:none!important;
+  opacity:1!important;
+  transition:transform 3s cubic-bezier(.22,.55,.11,1)!important;
+}
+#intro[data-env-style="artwork"].nt-doors .nt-left-door{
+  transform:rotateY(-151deg)!important;
+  opacity:1!important;
+}
+#intro[data-env-style="artwork"].nt-doors .nt-right-door{
+  transform:rotateY(151deg)!important;
+  opacity:1!important;
+}
+#intro[data-env-style="artwork"] .nt-right-door::before,
+#intro[data-env-style="artwork"] .nt-right-door::after{
+  display:block!important;
+}
+</style>
+
 </head>
 <body class="locked">
 <div id="intro" data-env-style="artwork" role="dialog" aria-label="เปิดซองการ์ดแต่งงาน">
