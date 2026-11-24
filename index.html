@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f9f8f4">
-<!-- NT Wedding V7.7: slower vertical bow, expanded feathered veil, matched side edges -->
+<!-- NT Wedding V7.9: slower bow, broader front veil, forced symmetric side edges -->
 <meta name="description" content="การ์ดเชิญงานมงคลสมรสและขึ้นบ้านใหม่ Nick & Toek · 15 พฤษภาคม 2570">
 <title>NICK & TOEK · Our Wedding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -974,16 +974,17 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
   width:auto;max-width:82%;max-height:31px;object-fit:contain;
   margin-top:-5px;transform:scale(1.14);transform-origin:50% 0;
 }
-/* V7.7: slower vertical bow, broader feathered veil, and matched side edges. */
+/* V7.9: slower bow to the envelope bottom, broader front veil, and forced symmetric side edges. */
 #intro[data-env-style="artwork"] .nt-crest-seam-veil{
- left:14%!important;top:-1%!important;width:72%!important;height:50%!important;
+ left:11%!important;top:-3%!important;width:78%!important;height:60%!important;
  background:
-   radial-gradient(ellipse 58% 46% at 50% 36%,rgba(255,253,249,.60) 0%,rgba(255,253,249,.54) 32%,rgba(255,253,249,.34) 58%,rgba(255,253,249,.14) 78%,transparent 100%),
-   radial-gradient(ellipse 50% 26% at 50% 58%,rgba(255,253,249,.34) 0%,rgba(255,253,249,.17) 54%,transparent 100%),
-   radial-gradient(ellipse 42% 20% at 50% 17%,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 55%,transparent 100%)!important;
+   radial-gradient(ellipse 63% 44% at 50% 29%,rgba(255,253,249,.60) 0%,rgba(255,253,249,.55) 29%,rgba(255,253,249,.38) 54%,rgba(255,253,249,.18) 76%,transparent 100%),
+   radial-gradient(ellipse 58% 30% at 50% 55%,rgba(255,253,249,.40) 0%,rgba(255,253,249,.24) 48%,rgba(255,253,249,.10) 74%,transparent 100%),
+   radial-gradient(ellipse 40% 17% at 50% 74%,rgba(255,253,249,.24) 0%,rgba(255,253,249,.10) 56%,transparent 100%),
+   radial-gradient(ellipse 42% 18% at 50% 13%,rgba(255,255,255,.18) 0%,rgba(255,255,255,.07) 52%,transparent 100%)!important;
  filter:blur(9px)!important;opacity:1;visibility:visible;border-radius:999px;
  -webkit-mask-image:none!important;mask-image:none!important;
- transition:opacity 1.05s ease,visibility 0s linear 0s!important;
+ transition:opacity 1.08s ease,visibility 0s linear 0s!important;
 }
 /* Keep the feathered glow visible while the envelope is still closed, then let it fade away with the crest before the card appears. */
 #intro[data-env-style="artwork"].nt-flap .nt-crest-seam-veil,
@@ -997,19 +998,20 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 #intro[data-env-style="artwork"] .nt-bow.nt-ribbon-split>.nt-bow-image{opacity:1!important}
 #intro[data-env-style="artwork"] .nt-bow .nt-ribbon-part{display:none!important}
 #intro[data-env-style="artwork"].nt-untie .nt-bow{
- animation:v77RibbonVertical 4.9s cubic-bezier(.23,.04,.28,1) both!important;
+ animation:v79RibbonVertical 5.35s cubic-bezier(.23,.05,.29,1) both!important;
  transform-origin:50% 38%!important;will-change:transform,opacity;
 }
-@keyframes v77RibbonVertical{
- 0%,16%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
- 30%{transform:translate3d(0,.5%,0) rotate(0deg) scale(.999);opacity:1}
- 44%{transform:translate3d(0,2%,0) rotate(0deg) scale(.996);opacity:1}
- 58%{transform:translate3d(0,5%,0) rotate(0deg) scale(.992);opacity:1}
- 72%{transform:translate3d(0,10%,0) rotate(0deg) scale(.987);opacity:1}
- 84%{transform:translate3d(0,18%,0) rotate(0deg) scale(.981);opacity:1}
- 92%{transform:translate3d(0,27%,0) rotate(0deg) scale(.974);opacity:.97}
- 97%{transform:translate3d(0,36%,0) rotate(0deg) scale(.968);opacity:.62}
- 100%{transform:translate3d(0,42%,0) rotate(0deg) scale(.964);opacity:0}
+@keyframes v79RibbonVertical{
+ 0%,18%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
+ 32%{transform:translate3d(0,.35%,0) rotate(0deg) scale(.999);opacity:1}
+ 46%{transform:translate3d(0,1.4%,0) rotate(0deg) scale(.996);opacity:1}
+ 60%{transform:translate3d(0,4.2%,0) rotate(0deg) scale(.992);opacity:1}
+ 74%{transform:translate3d(0,9.3%,0) rotate(0deg) scale(.987);opacity:1}
+ 86%{transform:translate3d(0,18.5%,0) rotate(0deg) scale(.980);opacity:1}
+ 94%{transform:translate3d(0,31%,0) rotate(0deg) scale(.972);opacity:1}
+ 97%{transform:translate3d(0,40%,0) rotate(0deg) scale(.966);opacity:1}
+ 99%{transform:translate3d(0,47%,0) rotate(0deg) scale(.961);opacity:.50}
+ 100%{transform:translate3d(0,50%,0) rotate(0deg) scale(.959);opacity:0}
 }
 /* Keep both side flaps perfectly symmetric so the left and right edges beside the card match. */
 #intro[data-env-style="artwork"] .nt-fold{box-shadow:none!important;outline:none!important}
@@ -1020,8 +1022,8 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
  backface-visibility:visible!important;-webkit-backface-visibility:visible!important;
  opacity:1!important;transition:transform 3.05s cubic-bezier(.22,.55,.11,1)!important;
 }
-#intro[data-env-style="artwork"] .nt-left-door{left:0!important;transform-origin:0 50%!important}
-#intro[data-env-style="artwork"] .nt-right-door{right:0!important;transform-origin:100% 50%!important}
+#intro[data-env-style="artwork"] .nt-left-door{left:0!important;right:auto!important;transform-origin:0 50%!important}
+#intro[data-env-style="artwork"] .nt-right-door{right:0!important;left:auto!important;transform-origin:100% 50%!important}
 #intro[data-env-style="artwork"] .nt-left-door::before,
 #intro[data-env-style="artwork"] .nt-right-door::before,
 #intro[data-env-style="artwork"] .nt-left-door::after,
@@ -1029,11 +1031,34 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 #intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-right-door::before{opacity:1!important}
 #intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::after{opacity:1!important}
 #intro[data-env-style="artwork"] .nt-left-door,#intro[data-env-style="artwork"] .nt-right-door{overflow:hidden!important}
-#intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::before,#intro[data-env-style="artwork"] .nt-right-door::after{inset:-1px!important;transform-style:preserve-3d!important}
+#intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::before,#intro[data-env-style="artwork"] .nt-right-door::after{inset:0!important;transform-style:preserve-3d!important}
 #intro[data-env-style="artwork"] .nt-left-door::before{background-position:left center!important}
-#intro[data-env-style="artwork"] .nt-right-door::before{background-position:calc(100% + 1px) center!important}
+#intro[data-env-style="artwork"] .nt-right-door::before{background-position:right center!important}
 #intro[data-env-style="artwork"] .nt-left-door::after{background-position:center,left center!important}
-#intro[data-env-style="artwork"] .nt-right-door::after{background-position:center,calc(100% + 1px) center!important}
+#intro[data-env-style="artwork"] .nt-right-door::after{background-position:center,right center!important}
+#intro[data-env-style="artwork"] .nt-scene::before,
+#intro[data-env-style="artwork"] .nt-scene::after{
+ content:"";position:absolute;top:0;bottom:0;width:12px;z-index:14;pointer-events:none;opacity:0;
+ transition:opacity .45s ease;
+}
+#intro[data-env-style="artwork"] .nt-scene::before{
+ left:2px;
+ background:linear-gradient(to right,rgba(166,145,118,.28) 0%,rgba(255,250,244,.96) 38%,rgba(255,250,244,.96) 68%,rgba(204,185,160,.34) 100%);
+ border-left:1px solid rgba(165,144,118,.30);border-right:1px solid rgba(255,255,255,.78);
+}
+#intro[data-env-style="artwork"] .nt-scene::after{
+ right:2px;
+ background:linear-gradient(to left,rgba(166,145,118,.28) 0%,rgba(255,250,244,.96) 38%,rgba(255,250,244,.96) 68%,rgba(204,185,160,.34) 100%);
+ border-right:1px solid rgba(165,144,118,.30);border-left:1px solid rgba(255,255,255,.78);
+}
+#intro.nt-doors[data-env-style="artwork"] .nt-scene::before,
+#intro.nt-doors[data-env-style="artwork"] .nt-scene::after,
+#intro.nt-card-reveal[data-env-style="artwork"] .nt-scene::before,
+#intro.nt-card-reveal[data-env-style="artwork"] .nt-scene::after,
+#intro.nt-card-ready[data-env-style="artwork"] .nt-scene::before,
+#intro.nt-card-ready[data-env-style="artwork"] .nt-scene::after{opacity:1}
+#intro.nt-card-picked[data-env-style="artwork"] .nt-scene::before,
+#intro.nt-card-picked[data-env-style="artwork"] .nt-scene::after{opacity:0}
 #intro[data-env-style="artwork"].nt-doors .nt-left-door{transform:rotateY(-151deg)!important;opacity:1!important}
 #intro[data-env-style="artwork"].nt-doors .nt-right-door{transform:rotateY(151deg)!important;opacity:1!important}
 /* Compact note-only music bubble, close to the bottom with safe-area protection. */
@@ -1477,20 +1502,20 @@ function openIntro(){
     e.style.width=(16+Math.random()*22)+'px';e.style.height=(18+Math.random()*22)+'px';
     petals.append(e);
   }
-  $('introTip').textContent='กำลังค่อย ๆ คลายริบบิ้นและเปิดคำเชิญอย่างนุ่มนวล…';
+  $('introTip').textContent='กำลังค่อย ๆ คลายริบบิ้นและเปิดคำเชิญ…';
   $('introTip').hidden=false;
   $('introCardHint').hidden=true;
   stage.classList.add('nt-untie');
   // Wait until the pull, untying and ribbon slip have finished before opening.
-  deferIntro(()=>stage.classList.add('nt-flap'),5100);
-  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?7000:mode==='sides'?5400:7100);
+  deferIntro(()=>stage.classList.add('nt-flap'),5650);
+  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?7700:mode==='sides'?5950:7800);
   // At no time is the invitation enlarged: it stays the size of the envelope.
-  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?9800:mode==='sides'?8200:9950);
+  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?10650:mode==='sides'?8900:10800);
   deferIntro(()=>{
     stage.classList.add('nt-card-ready');stage.dataset.awaitTap='1';
     $('introTip').hidden=true;$('introCardHint').hidden=false;
     $('introCardHint').textContent='แตะการ์ดเพื่อดูรายละเอียดงาน';
-  },mode==='sides'?9600:11400);
+  },mode==='sides'?10300:12200);
 }
 function finishIntroFromCard(){
   const stage=$('intro');if(stage.dataset.awaitTap!=='1')return;
