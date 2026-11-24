@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f9f8f4">
-<!-- NT Wedding V7.3: feathered crest + graceful bow release + floating music control -->
+<!-- NT Wedding V7.4: bow slip, centered divider, feathered crest and note-only music -->
 <meta name="description" content="การ์ดเชิญงานมงคลสมรสและขึ้นบ้านใหม่ Nick & Toek · 15 พฤษภาคม 2570">
 <title>NICK & TOEK · Our Wedding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -956,6 +956,82 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 @media(max-width:350px){.preset-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 </style>
+<style id="nt-v74-fixes">
+/* V7.4 · targeted fixes from 24 November user feedback */
+/* No decorative art to either side of the crest; keep the one centered ornament only. */
+#intro[data-env-style="artwork"] .nt-cover-flourishes .nt-crest-line{display:none!important}
+#intro[data-env-style="artwork"] .nt-cover-flourishes{
+  width:80%;height:18px;margin-top:-7px;margin-bottom:-6px;min-height:0;
+  display:flex;justify-content:center;align-items:center;gap:0;
+}
+#intro[data-env-style="artwork"] .nt-line-default{
+ font:20px/1 Georgia,serif;letter-spacing:.43em;color:#b29b75;
+}
+#intro[data-env-style="artwork"] .nt-cover-flourishes:has(.nt-line-default[hidden]){
+  display:none!important;height:0!important;margin:0!important;
+}
+#intro[data-env-style="artwork"] .nt-crest-line-center{
+  width:auto;max-width:82%;max-height:31px;object-fit:contain;
+  margin-top:-5px;transform:scale(1.14);transform-origin:50% 0;
+}
+/* Seamless oval feathering covers crest, name and middle flourish while leaving corner roses intact.
+   Avoid any solid rectangular patch with an abrupt edge. */
+#intro[data-env-style="artwork"] .nt-crest-seam-veil{
+ left:25.5%!important;top:2.8%!important;width:49%!important;height:47.8%!important;
+ background:
+  radial-gradient(ellipse 66% 65% at 50% 50%,rgba(255,253,249,.985) 0%,rgba(255,253,249,.97) 49%,rgba(255,253,249,.76) 64%,rgba(255,253,249,.20) 82%,transparent 100%),
+  radial-gradient(ellipse 57% 30% at 50% 78%,rgba(255,253,249,.88) 0%,rgba(255,253,249,.44) 50%,transparent 100%)!important;
+ filter:blur(9px)!important;opacity:1;
+ -webkit-mask-image:radial-gradient(ellipse 78% 72% at 50% 49%,#000 0 57%,rgba(0,0,0,.65) 70%,transparent 100%)!important;
+ mask-image:radial-gradient(ellipse 78% 72% at 50% 49%,#000 0 57%,rgba(0,0,0,.65) 70%,transparent 100%)!important;
+}
+/* The entire bow slides off like the reference (not five disjoint pieces).
+   A gentle tension release is followed by a curved gravity fall. */
+#intro[data-env-style="artwork"] .nt-bow.nt-ribbon-split>.nt-bow-image{opacity:1!important}
+#intro[data-env-style="artwork"] .nt-bow .nt-ribbon-part{display:none!important}
+#intro[data-env-style="artwork"].nt-untie .nt-bow{
+ animation:v74RibbonSlip 3.05s cubic-bezier(.22,.02,.35,1) both!important;
+ transform-origin:51% 36%!important;will-change:transform,opacity;
+}
+@keyframes v74RibbonSlip{
+ 0%,10%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
+ 23%{transform:translate3d(1.5%,1%,0) rotate(-1deg) scale(.99,1.01);opacity:1}
+ 40%{transform:translate3d(4%,6%,0) rotate(1deg) scale(.96,1);opacity:1}
+ 58%{transform:translate3d(8%,13%,0) rotate(3deg) scale(.92,.97);opacity:1}
+ 74%{transform:translate3d(12%,27vh,0) rotate(6deg) scale(.88,.93);opacity:1}
+ 89%{transform:translate3d(17%,44vh,0) rotate(9deg) scale(.86);opacity:.98}
+ 100%{transform:translate3d(19%,76vh,0) rotate(12deg) scale(.83);opacity:0}
+}
+/* Remove the right-hand edge/shadow that looks like a vertical bar as the door turns.
+   Hide only the back-facing last sliver, AFTER the opening movement completes. */
+#intro[data-env-style="artwork"] .nt-fold{
+ box-shadow:none!important;outline:none!important;
+ backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important;
+}
+#intro[data-env-style="artwork"] .nt-right-door{
+ clip-path:inset(0 1px 0 0);-webkit-clip-path:inset(0 1px 0 0);
+ transition:transform 2.6s cubic-bezier(.23,.6,.13,1),opacity .20s linear 2.32s!important;
+}
+#intro[data-env-style="artwork"].nt-doors .nt-right-door{
+ transform:rotateY(180deg) translateZ(-2px)!important;opacity:0!important;
+}
+/* Compact note-only music bubble, close to the bottom with safe-area protection. */
+.nt-floating-music{
+ right:max(14px,calc((100vw - 540px)/2 + 13px))!important;
+ bottom:calc(16px + env(safe-area-inset-bottom,0px))!important;gap:6px!important;
+}
+.nt-music-bubble{
+ width:42px!important;height:42px!important;border-width:1.25px!important;
+ box-shadow:0 4px 14px #354b3520!important;
+}
+.nt-music-bubble svg{width:21px!important;height:21px!important}
+.nt-music-bubble span{display:none!important}
+.nt-music-bubble:not(.playing) svg{animation:none!important;transform:none!important}
+.nt-music-bubble.playing svg{animation:v74NoteDancing 1.9s ease-in-out infinite!important}
+@keyframes v74NoteDancing{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-2px) rotate(-8deg)}70%{transform:translateY(1px) rotate(6deg)}}
+@media(max-width:380px){.nt-floating-music{right:12px!important;bottom:calc(12px + env(safe-area-inset-bottom,0px))!important}.nt-music-bubble{width:40px!important;height:40px!important}}
+@media(prefers-reduced-motion:reduce){#intro[data-env-style="artwork"].nt-untie .nt-bow{animation-duration:.7s!important}.nt-music-bubble.playing svg{animation:none!important}}
+</style>
 </head>
 <body class="locked">
 <div id="intro" data-env-style="artwork" role="dialog" aria-label="เปิดซองการ์ดแต่งงาน">
@@ -1023,7 +1099,7 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
   <div class="nt-music-toast" id="ntMusicToast" role="status" aria-live="polite"></div>
   <button type="button" id="ntMusicBubble" class="nt-music-bubble" aria-label="เล่นเพลง" aria-pressed="false" title="เปิดหรือปิดเพลง">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-    <span id="ntMusicPause" aria-hidden="true">▶</span>
+    
   </button>
 </div>
 <audio id="bgAudio" playsinline loop preload="auto"></audio>
@@ -1258,8 +1334,8 @@ function render(){rgbVars();const o=data.details,s=data.settings;
   setCrest('ntCrestFrame',data.images.envelopeFrame||'');
   setCrest('ntCrestLogo',s.envelopeLogoStyle==='text'?'':(data.images.envelopeLogo||data.images.logo||''));
   txt('ntCoverName',o.envelopeTitle||((o.brideNick+' & '+o.groomNick).toUpperCase()));
-  setCrest('ntCrestLineLeft',data.images.envelopeLineLeft||'');
-  setCrest('ntCrestLineRight',data.images.envelopeLineRight||'');
+  setCrest('ntCrestLineLeft','');
+  setCrest('ntCrestLineRight','');
   setCrest('ntCrestLineCenter',data.images.envelopeLineCenter||'');
   $('ntCrestLineDefault').hidden=Boolean(data.images.envelopeLineCenter);
   $('ntCoverCustom').classList.toggle('no-frame',!data.images.envelopeFrame);
@@ -1301,7 +1377,6 @@ function ntMusicState(){
   ntMusicBubble.setAttribute('aria-pressed',String(playing));
   ntMusicBubble.setAttribute('aria-label',playing?'พักเพลง':'เล่นเพลง');
   ntMusicBubble.title=playing?'พักเพลง':'เล่นเพลง';
-  $('ntMusicPause').textContent=playing?'Ⅱ':'▶';
   ntMusicBubble.classList.toggle('playing',playing);
 }
 function ntShowMusicToast(message){
@@ -1386,15 +1461,15 @@ function openIntro(){
   $('introCardHint').hidden=true;
   stage.classList.add('nt-untie');
   // Wait until the pull, untying and ribbon slip have finished before opening.
-  deferIntro(()=>stage.classList.add('nt-flap'),4900);
-  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?6500:mode==='sides'?5100:6900);
+  deferIntro(()=>stage.classList.add('nt-flap'),3300);
+  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?4600:mode==='sides'?3400:4700);
   // At no time is the invitation enlarged: it stays the size of the envelope.
-  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?9300:mode==='sides'?8200:9500);
+  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?7350:mode==='sides'?6300:7500);
   deferIntro(()=>{
     stage.classList.add('nt-card-ready');stage.dataset.awaitTap='1';
     $('introTip').hidden=true;$('introCardHint').hidden=false;
     $('introCardHint').textContent='แตะการ์ดเพื่อดูรายละเอียดงาน';
-  },mode==='sides'?10100:11200);
+  },mode==='sides'?7950:9050);
 }
 function finishIntroFromCard(){
   const stage=$('intro');if(stage.dataset.awaitTap!=='1')return;
@@ -1460,12 +1535,10 @@ function drawEditor(){const t=$('editorTabs');t.innerHTML=tabs.map(([k,n])=>`<bu
 ${editableAsset('envelopeFrame','รูปกรอบโลโก้หน้าซอง PNG โปร่งใส')}
 ${editableAsset('envelopeLogo','รูปโลโก้หน้าซอง PNG โปร่งใส')}
 ${field('details.envelopeTitle','ชื่อบนหน้าซอง')}
-${editableAsset('envelopeLineLeft','ภาพเส้นตกแต่งด้านซ้าย')}
-${editableAsset('envelopeLineRight','ภาพเส้นตกแต่งด้านขวา')}
 ${editableAsset('envelopeLineCenter','ภาพเส้นตกแต่งกลาง (ถ้ามี)')}
 <h3 class="edit-section-label">ซองและสีธีม</h3>${field('details.envelopeTitle','ข้อความบนซอง')}${field('settings.introEnabled','แสดงแอนิเมชันเปิดซอง','select',optionSet('settings.introEnabled',[[true,'เปิด'],[false,'ปิด']]))}${field('settings.envelopeLogoStyle','รูปแบบโลโก้หน้าซอง','select',optionSet('settings.envelopeLogoStyle',[['image','รูปโลโก้'],['text','ข้อความอย่างเดียว']]))}<div class="scolors">${[['accent','สีหลัก / เขียวเซจ'],['ink','สีข้อความ'],['paper','สีพื้นหลัง'],['envelope','สีซอง'],['bow','สีโบว์']].map(([k,l])=>field('colors.'+k,l,'color')).join('')}</div>${field('settings.fontThai','ฟอนต์ภาษาไทย','select',optionSet('settings.fontThai',[['noto-serif','Noto Serif Thai'],['noto-sans','Noto Sans Thai'],['sarabun','Sarabun'],['kanit','Kanit'],['mali','Mali ลายมือ']]))}${field('settings.fontEnglish','ฟอนต์ภาษาอังกฤษ','select',optionSet('settings.fontEnglish',[['cormorant','Cormorant Garamond'],['great-vibes','Great Vibes'],['playfair','Playfair Display'],['cinzel','Cinzel'],['garamond','Georgia']]))}${field('settings.envelopeArtworkEnabled','ใช้ซองภาพถ่าย / สีน้ำ','select',optionSet('settings.envelopeArtworkEnabled',[[true,'ใช้ภาพซอง'],[false,'ใช้ซองสีพื้นเดิม']]))}${field('settings.envelopePreset','เลือกรูปซอง','select',optionSet('settings.envelopePreset',[['laceRose','ซองสวนกุหลาบลายเดิม'],['roseGardenNew','สวนกุหลาบคู่ประตู (ใหม่)'],['gardenArchNew','ซุ้มดอกไม้สีขาวและโคมไฟ (ใหม่)'],['mountainNew','สวนภูเขาและศาลา (ใหม่)'],['cherryNew','สวนดอกซากุระสีชมพู (ใหม่)'],['green','ซองสวนภูเขา โบว์เขียวอ่อน'],['rose','ซองกุหลาบ โบว์ชมพูซาติน'],['lace','ซองชมพู โบว์ลูกไม้'],['garden','ซองสวนสีขาว โบว์เขียว'],['custom','รูปซองที่อัปโหลดเอง']]))}${field('settings.bowPreset','เลือกรูปโบว์ (แยกจากแบบซอง)','select',optionSet('settings.bowPreset', [['matched','โบว์คู่กับซอง (แบบเดิม)'],['sageSilk','โบว์ซาตินสีเขียวใบไม้ (ใหม่)'],['pinkCameo','โบว์ชมพูมุกและจี้ดอกไม้ (ใหม่)'],['peachLace','โบว์ลูกไม้สีพีชจี้ทอง (ใหม่)'],['champagne','โบว์ซาตินสีแชมเปญ (ใหม่)'],['custom','อัปโหลดโบว์ของตัวเอง']]))}${field('settings.bowColorMode','การใช้สีโบว์','select',optionSet('settings.bowColorMode',[['original','ใช้สีต้นฉบับ'],['custom','ย้อมสีโบว์ตามตัวเลือกด้านล่าง']]))}<div class="editor-help">เมื่อเลือก “ย้อมสีโบว์” ให้ตั้งสีในช่อง <b>สีโบว์</b> ด้านบน โบว์จะเปลี่ยนสีโดยยังคงแสงเงาผ้าไว้ (สีจี้และมุกบางส่วนอาจเปลี่ยนเล็กน้อย)</div><div class="preset-picker" id="envelopePresetGrid"><b>ตัวอย่างซองที่เลือกได้</b><div class="preset-gallery" data-gallery-kind="envelope"></div></div><div class="preset-picker" id="bowPresetGrid"><b>ตัวอย่างโบว์ที่เลือกได้</b><div class="preset-gallery" data-gallery-kind="bow"></div></div>${field('settings.openingMode','รูปแบบการเปิดซอง','select',optionSet('settings.openingMode',[['top-sides','เปิดฝาบน แล้วเปิดซ้าย–ขวา'],['sides','เปิดซ้าย–ขวาอย่างเดียว'],['top','เปิดฝาด้านบนอย่างเดียว']]))}${field('colors.innerEnvelope','สีด้านในซอง','color')}${field('settings.petalAmount','จำนวนกลีบกุหลาบตอนเปิด','select',optionSet('settings.petalAmount',[['low','น้อย'],['medium','พอดี'],['high','มาก']]))}${field('settings.floatingPetals','กลีบกุหลาบและใบไม้ในหน้าเว็บ','select',optionSet('settings.floatingPetals',[[true,'เปิดการเคลื่อนไหว'],[false,'ปิดกลีบกุหลาบ']]))}<div class="editor-help">ภาพซองและโบว์เลือกแยกกันได้ มีแบบใหม่ 4 ซองและ 4 โบว์ และใช้โบว์แยกชั้นเพื่อให้หลุดลงก่อนเปิดฝา เมื่อใช้ซองรูปส่วนตัว หากมีโบว์ติดในภาพ ควรอัปโหลดภาพซองที่ไม่มีโบว์และภาพโบว์โปร่งใสเพิ่มในแท็บรูป / โลโก้</div>${field('settings.envelopeStyle','แบบซอง','select',optionSet('settings.envelopeStyle',[['classic','Classic Green'],['sage','Sage Soft'],['ivory','Ivory Gold'],['blush','Blush Rose'],['mist','Misty Blue'],['olive','Olive Garden'],['border','Border Line'],['monogram','Monogram'],['frame','Floral Frame'],['minimal','Minimal']]))}${field('settings.bowStyle','แบบโบว์','select',optionSet('settings.bowStyle',[['satin','Satin Long Tail'],['silk','Silk Soft'],['grand','Grand Wide'],['slim','Slim Knot'],['pearl','Pearl Bow'],['airy','Airy Bow'],['layered','Layered Bow'],['velvet','Velvet Classic'],['petal','Petal Bow'],['double','Double Ribbon']]))}${field('settings.logoFrame','รูปแบบกรอบโลโก้','select',optionSet('settings.logoFrame',[['arch','กรอบโค้งมีใบไม้'],['round','วงกลม'],['soft','มุมมน'],['square','กรอบสี่เหลี่ยม'],['double','เส้นคู่'],['floral','กรอบดอกไม้'],['none','ไม่มีกรอบ']]))}${field('settings.brideFrame','กรอบเจ้าสาว (เลือกจากไฟล์ที่แนบ)','select',frameOptions('settings.brideFrame'))}${field('settings.groomFrame','กรอบเจ้าบ่าว (เลือกจากไฟล์ที่แนบ)','select',frameOptions('settings.groomFrame'))}${field('settings.timelineStyle','รูปแบบ WEDDING TIMELINE','select',optionSet('settings.timelineStyle',[['line','แนวกลางเรียงลง'],['cards','การ์ดลำดับ'],['center','เส้นแบ่งกลาง'],['bubbles','กรอบฟองดอกไม้'],['steps','ขั้นตอนมีหมายเลข'],['minimal','แบบเรียบภาพ+ข้อความ'],['zigzag','สลับซ้ายขวา'],['ribbon','ริบบิ้นแนวนอน'],['alternating-classic','เส้นกลางสลับซ้ายขวา (แบบที่แนบ)'],['wedding-dots','เส้นกลางจุดวงกลม (แบบที่แนบ)'],['wedding-flowers','เส้นกลางชมพูดอกไม้'],['handdrawn','เส้นกลางวาดมือ'],['wedding-slim','เส้นกลางบางเรียบ'],['center-soft','เส้นกลาง · การ์ดนุ่ม'],['center-luxe','เส้นกลาง · หรู'],['center-floral','เส้นกลาง · ดอกไม้'],['center-dots','เส้นกลาง · จุดไข่มุก'],['center-clean','เส้นกลาง · มินิมอล']]))}${field('settings.venueStyle','รูปแบบสถานที่จัดงาน','select',optionSet('settings.venueStyle',[['card','รูปซ้าย · รายละเอียดขวา'],['stacked','รูปใหญ่เหนือรายละเอียด'],['framed','กรอบรูปพรีเมียม'],['overlay','รูปใหญ่พร้อมกล่องข้อความ'],['split','แบ่งสองคอลัมน์'],['minimal','มินิมอลบางเบา']]))}${field('settings.calendarStyle','ปฏิทิน','select',optionSet('settings.calendarStyle',[['grid','ปฏิทินทั้งเดือน'],['minimal','เฉพาะวัน + นับถอยหลัง'],['botanical','กรอบสวนดอกไม้'],['gold','กรอบทอง'],['romantic','ชมพูหวาน'],['lined','เส้นคั่นเรียบ'],['number-only','เลขวันเด่น']]))}<div class="editor-help">โบว์ซาตินครีมชายยาวจะค่อย ๆ คลาย กลีบกุหลาบสีขาวกระจาย ซองเปิดและการ์ดขยายเต็มหน้าเมื่อแขกแตะเปิด</div>`;
  if(tab==='details')html=`<h3 class="edit-section-label">ข้อความการ์ด</h3>${[['brideNick','ชื่อเล่นเจ้าสาว (อังกฤษ)'],['groomNick','ชื่อเล่นเจ้าบ่าว (อังกฤษ)'],['brideThai','ชื่อจริงเจ้าสาว (ไทย)'],['groomThai','ชื่อจริงเจ้าบ่าว (ไทย)'],['brideEnglish','ชื่อจริงเจ้าสาว (อังกฤษ)'],['groomEnglish','ชื่อจริงเจ้าบ่าว (อังกฤษ)'],['headline','ข้อความ THE WEDDING OF'],['heroCaption','ข้อความใต้รูปซุ้มแต่งงาน'],['welcome','ข้อความเชิญ'],['date','วันแต่งงาน (ค.ศ.)'],['familyHeading','หัวข้อครอบครัว'],['fatherBride','พ่อเจ้าสาว'],['motherBride','แม่เจ้าสาว'],['fatherGroom','พ่อเจ้าบ่าว'],['motherGroom','แม่เจ้าบ่าว'],['timelineHeading','หัวข้อ WEDDING TIMELINE'],['venueName','ชื่อสถานที่'],['venueAddress','ที่อยู่สถานที่'],['venueNotes','รายละเอียดสถานที่'],['rsvpText','ข้อความเชิญตอบรับ'],['dressText','คำอธิบาย DRESS CODE'],['giftText','ข้อความส่วนของขวัญ'],['apologyThai','คำลงท้ายภาษาไทย'],['apologyEnglish','คำลงท้ายภาษาอังกฤษ'],['songName','ชื่อเพลง']].map(([k,l])=>field('details.'+k,l,['welcome','venueAddress','venueNotes','rsvpText','dressText','giftText'].includes(k)?'textarea':k==='date'?'date':'text')).join('')}`;
- if(tab==='images')html=`<h3 class="edit-section-label">รูปการ์ดในซอง</h3><div class="nt-card-editor edit-row"><img class="nt-editor-card-thumbnail" src="${safe(data.images.cardImage||data.images.ceremony||'')}" alt="ภาพการ์ดที่ใช้ตอนนี้"><label class="nt-card-upload-label">＋ แทรกรูปการ์ด<input type="file" accept="image/*,.heic,.heif" data-imgkey="cardImage" aria-label="เพิ่มรูปภาพการ์ดภายในซอง"></label></div><h3 class="edit-section-label">เปลี่ยนรูปภาพและโลโก้</h3>${[['introBackgroundPhoto','พื้นหลังหน้าซอง — ผ้าซาตินสีเขียว'],['envelopeArtwork','ภาพหน้าซองของตัวเอง (เลือกซองแบบ Custom)'],['customEnvelopeBlank','ภาพซองที่ลบโบว์ออกแล้ว (แนะนำ)'],['customEnvelopeBow','โบว์แยกพื้นโปร่งใส PNG เพื่อให้หล่นได้'],['logo','โลโก้ NT ด้านบน'],['envelopeLogo','โลโก้หน้าซอง'],['envelopeFrame','กรอบโลโก้หน้าซอง (PNG)'],['envelopeLineLeft','ภาพเส้นหน้าซองฝั่งซ้าย'],['envelopeLineRight','ภาพเส้นหน้าซองฝั่งขวา'],['envelopeLineCenter','ภาพเส้นกลางหน้าซอง'],['heroLogoFrame','กรอบโลโก้หน้ารายละเอียด (PNG)'],['ceremony','ฉากพิธีแต่งงานสีน้ำ'],['cardImage','รูปหน้าการ์ดที่เลื่อนออกจากซอง'],['heroDivider','ภาพคั่นหัวใจหน้าแรก'],['peopleDivider','ภาพคั่นระหว่างเจ้าสาวและเจ้าบ่าว'],['familyCenter','ภาพคั่นระหว่างครอบครัวสองฝ่าย'],['beforeDate','ภาพคั่นระหว่างชื่อเจ้าบ่าวกับ SAVE OUR DATE'],['footerDivider','ภาพตกแต่งท้ายการ์ด'],['rsvpDeco','ภาพตกแต่งกรอบ RSVP'],['dressDeco','ภาพตกแต่งหัวข้อ Dress Code'],['giftBox','รูปกล่องของขวัญ (แตะเปิดได้)'],['floralLeft','ใบไม้เฉพาะมุมบนซ้าย'],['floralRight','ใบไม้เฉพาะมุมบนขวา'],['bride','รูปเจ้าสาว'],['groom','รูปเจ้าบ่าว'],['cake','รูปเค้ก'],['venue','รูปสถานที่จัดงาน'],['mapQR','QR แผนที่'],['giftQR','QR รับของขวัญ'],['wishesBottom','รูปใต้เขียนคำอวยพร'],['footerLeft','รูปมุมซ้ายล่างสุด'],['footerRight','รูปมุมขวาล่างสุด']].map(([k,l])=>editableAsset(k,l)).join('')}<div class="edit-row"><b>เพลงประกอบ</b><input type="file" id="songUpload" accept="audio/*"><div class="muted-note">เลือก MP3/M4A จากมือถือ · เพลงที่อัปโหลดเองต้องมีสิทธิ์ใช้งาน</div></div>${field('details.youtubeUrl','ลิงก์เพลงบน YouTube (เปิดโดยแขกกดเอง)','url')}<div class="editor-help">YouTube จะเปิดด้วยปุ่มแยก ไม่สามารถใช้เสียงจากวิดีโอเป็นเพลงพื้นหลังอัตโนมัติได้อย่างเชื่อถือได้บนมือถือ</div>`;
+ if(tab==='images')html=`<h3 class="edit-section-label">รูปการ์ดในซอง</h3><div class="nt-card-editor edit-row"><img class="nt-editor-card-thumbnail" src="${safe(data.images.cardImage||data.images.ceremony||'')}" alt="ภาพการ์ดที่ใช้ตอนนี้"><label class="nt-card-upload-label">＋ แทรกรูปการ์ด<input type="file" accept="image/*,.heic,.heif" data-imgkey="cardImage" aria-label="เพิ่มรูปภาพการ์ดภายในซอง"></label></div><h3 class="edit-section-label">เปลี่ยนรูปภาพและโลโก้</h3>${[['introBackgroundPhoto','พื้นหลังหน้าซอง — ผ้าซาตินสีเขียว'],['envelopeArtwork','ภาพหน้าซองของตัวเอง (เลือกซองแบบ Custom)'],['customEnvelopeBlank','ภาพซองที่ลบโบว์ออกแล้ว (แนะนำ)'],['customEnvelopeBow','โบว์แยกพื้นโปร่งใส PNG เพื่อให้หล่นได้'],['logo','โลโก้ NT ด้านบน'],['envelopeLogo','โลโก้หน้าซอง'],['envelopeFrame','กรอบโลโก้หน้าซอง (PNG)'],['envelopeLineCenter','ภาพเส้นกลางหน้าซอง'],['heroLogoFrame','กรอบโลโก้หน้ารายละเอียด (PNG)'],['ceremony','ฉากพิธีแต่งงานสีน้ำ'],['cardImage','รูปหน้าการ์ดที่เลื่อนออกจากซอง'],['heroDivider','ภาพคั่นหัวใจหน้าแรก'],['peopleDivider','ภาพคั่นระหว่างเจ้าสาวและเจ้าบ่าว'],['familyCenter','ภาพคั่นระหว่างครอบครัวสองฝ่าย'],['beforeDate','ภาพคั่นระหว่างชื่อเจ้าบ่าวกับ SAVE OUR DATE'],['footerDivider','ภาพตกแต่งท้ายการ์ด'],['rsvpDeco','ภาพตกแต่งกรอบ RSVP'],['dressDeco','ภาพตกแต่งหัวข้อ Dress Code'],['giftBox','รูปกล่องของขวัญ (แตะเปิดได้)'],['floralLeft','ใบไม้เฉพาะมุมบนซ้าย'],['floralRight','ใบไม้เฉพาะมุมบนขวา'],['bride','รูปเจ้าสาว'],['groom','รูปเจ้าบ่าว'],['cake','รูปเค้ก'],['venue','รูปสถานที่จัดงาน'],['mapQR','QR แผนที่'],['giftQR','QR รับของขวัญ'],['wishesBottom','รูปใต้เขียนคำอวยพร'],['footerLeft','รูปมุมซ้ายล่างสุด'],['footerRight','รูปมุมขวาล่างสุด']].map(([k,l])=>editableAsset(k,l)).join('')}<div class="edit-row"><b>เพลงประกอบ</b><input type="file" id="songUpload" accept="audio/*"><div class="muted-note">เลือก MP3/M4A จากมือถือ · เพลงที่อัปโหลดเองต้องมีสิทธิ์ใช้งาน</div></div>${field('details.youtubeUrl','ลิงก์เพลงบน YouTube (เปิดโดยแขกกดเอง)','url')}<div class="editor-help">YouTube จะเปิดด้วยปุ่มแยก ไม่สามารถใช้เสียงจากวิดีโอเป็นเพลงพื้นหลังอัตโนมัติได้อย่างเชื่อถือได้บนมือถือ</div>`;
  if(tab==='timeline')html=`<h3 class="edit-section-label">กำหนดการพิธี</h3>${data.timeline.map(rowTimeline).join('')}<button class="add-btn" id="addEvent">＋ เพิ่มรายการกำหนดการ</button><h3 class="edit-section-label">DRESS CODE</h3>${field('settings.dressShape','รูปแบบสัญลักษณ์สี','select',optionSet('settings.dressShape',[['heart','หัวใจ ♥'],['circle','วงกลม ●'],['flower','ดอกไม้ ✿']]))}<div class="editor-help">เลือกจำนวนสีได้เอง กดเพิ่มหรือกดลบได้</div>${data.palette.map((color,i)=>`<div class="edit-row" style="display:flex;align-items:center;gap:12px"><span>สี ${i+1}</span><input type="color" data-pal="${i}" value="${safe(color)}" style="width:65px;height:40px"><button type="button" data-paldel="${i}" style="border:0;background:#fff;color:#855">ลบ</button></div>`).join('')}<button class="add-btn" id="addColor">＋ เพิ่มสี</button>`;
  if(tab==='gallery')html=`<h3 class="edit-section-label">แกลเลอรี่ภาพบ่าวสาว</h3>${field('settings.galleryStyle','รูปแบบแสดงรูป','select',optionSet('settings.galleryStyle',[['portrait','รูปแนวตั้ง'],['square','รูปสี่เหลี่ยมจัตุรัส'],['wide','รูปแนวนอน'],['rounded','กรอบมนพิเศษ'],['soft','เงานุ่ม'],['polaroid','สไตล์โพลารอยด์'],['cinema','ภาพยนตร์']]))}${field('settings.galleryAutoplay','เล่นภาพอัตโนมัติ','select',optionSet('settings.galleryAutoplay',[[false,'เลื่อนเอง'],[true,'เลื่อนอัตโนมัติทุก 4.5 วินาที']]))}${data.gallery.map(galleryItem).join('')}<button class="add-btn" id="addPhoto">＋ เพิ่มรูปในแกลเลอรี่</button><p class="muted-note">แตะลูกศร ↑ ↓ เพื่อสลับลำดับรูป ข้อมูลจะรวมในไฟล์ HTML ที่ดาวน์โหลด</p>`;
  if(tab==='connections')html=`<h3 class="edit-section-label">เชื่อมต่อบริการออนไลน์</h3><div class="editor-help">GitHub Pages รองรับเว็บไซต์ แต่ไม่เก็บคำตอบ/คำอวยพรจากแขกให้เอง ต้องใช้ Google Forms และ Google Apps Script ตามไฟล์คู่มือที่ให้</div>${field('details.googleFormUrl','ลิงก์ Google Forms สำหรับ RSVP','url')}${field('details.wishesEndpoint','ลิงก์ Google Apps Script สำหรับคำอวยพร','url')}${field('details.mapUrl','ลิงก์ Google Maps (เว้นว่าง = ค้นหาตามสถานที่)','url')}<p class="muted-note">Google Form ตั้งค่าคำถาม: ชื่อ-สกุล / ชื่อเล่น / มากี่คน / ฝั่งเจ้าสาวหรือเจ้าบ่าว / สามารถร่วมงานได้ไหม / ผู้ติดตาม / แพ้อาหาร พร้อมแยกส่วนกรณีไม่มา และปิดการจำกัดอีเมล</p><button type="button" id="clearDraft" class="add-btn">ล้างฉบับแก้ไขเฉพาะเครื่อง</button>`;
