@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f9f8f4">
-<!-- NT Wedding V7.6: slower vertical bow, feathered veil restored, symmetrical envelope doors -->
+<!-- NT Wedding V7.7: slower vertical bow, expanded feathered veil, matched side edges -->
 <meta name="description" content="การ์ดเชิญงานมงคลสมรสและขึ้นบ้านใหม่ Nick & Toek · 15 พฤษภาคม 2570">
 <title>NICK & TOEK · Our Wedding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -974,20 +974,21 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
   width:auto;max-width:82%;max-height:31px;object-fit:contain;
   margin-top:-5px;transform:scale(1.14);transform-origin:50% 0;
 }
-/* V7.5: lighter feathering, strictly vertical bow and symmetrical hinged doors. */
+/* V7.7: slower vertical bow, broader feathered veil, and matched side edges. */
 #intro[data-env-style="artwork"] .nt-crest-seam-veil{
- left:20%!important;top:1%!important;width:60%!important;height:44%!important;
+ left:14%!important;top:-1%!important;width:72%!important;height:50%!important;
  background:
-   radial-gradient(ellipse 49% 38% at 50% 41%,rgba(255,253,249,.58) 0%,rgba(255,253,249,.50) 36%,rgba(255,253,249,.28) 63%,rgba(255,253,249,.08) 82%,transparent 100%),
-   radial-gradient(ellipse 41% 22% at 50% 22%,rgba(255,255,255,.26) 0%,rgba(255,255,255,.08) 52%,transparent 100%)!important;
- filter:blur(8px)!important;opacity:1;visibility:visible;border-radius:999px;
+   radial-gradient(ellipse 58% 46% at 50% 36%,rgba(255,253,249,.60) 0%,rgba(255,253,249,.54) 32%,rgba(255,253,249,.34) 58%,rgba(255,253,249,.14) 78%,transparent 100%),
+   radial-gradient(ellipse 50% 26% at 50% 58%,rgba(255,253,249,.34) 0%,rgba(255,253,249,.17) 54%,transparent 100%),
+   radial-gradient(ellipse 42% 20% at 50% 17%,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 55%,transparent 100%)!important;
+ filter:blur(9px)!important;opacity:1;visibility:visible;border-radius:999px;
  -webkit-mask-image:none!important;mask-image:none!important;
- transition:opacity .95s ease,visibility 0s linear 0s!important;
+ transition:opacity 1.05s ease,visibility 0s linear 0s!important;
 }
 /* Keep the feathered glow visible while the envelope is still closed, then let it fade away with the crest before the card appears. */
 #intro[data-env-style="artwork"].nt-flap .nt-crest-seam-veil,
 #intro[data-env-style="artwork"].nt-doors .nt-crest-seam-veil{
- opacity:0!important;visibility:hidden;transition:opacity .9s ease,visibility 0s linear .9s!important;
+ opacity:0!important;visibility:hidden;transition:opacity 1s ease,visibility 0s linear 1s!important;
 }
 #intro[data-env-style="artwork"].nt-card-reveal .nt-crest-seam-veil,
 #intro[data-env-style="artwork"].nt-card-ready .nt-crest-seam-veil{
@@ -996,18 +997,19 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 #intro[data-env-style="artwork"] .nt-bow.nt-ribbon-split>.nt-bow-image{opacity:1!important}
 #intro[data-env-style="artwork"] .nt-bow .nt-ribbon-part{display:none!important}
 #intro[data-env-style="artwork"].nt-untie .nt-bow{
- animation:v76RibbonVertical 4.15s cubic-bezier(.22,.05,.28,1) both!important;
+ animation:v77RibbonVertical 4.9s cubic-bezier(.23,.04,.28,1) both!important;
  transform-origin:50% 38%!important;will-change:transform,opacity;
 }
-@keyframes v76RibbonVertical{
- 0%,14%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
- 28%{transform:translate3d(0,.6%,0) rotate(0deg) scale(.998);opacity:1}
- 44%{transform:translate3d(0,3%,0) rotate(0deg) scale(.994);opacity:1}
- 60%{transform:translate3d(0,8%,0) rotate(0deg) scale(.988);opacity:1}
- 76%{transform:translate3d(0,17%,0) rotate(0deg) scale(.982);opacity:1}
- 88%{transform:translate3d(0,29%,0) rotate(0deg) scale(.975);opacity:1}
- 95%{transform:translate3d(0,41%,0) rotate(0deg) scale(.968);opacity:.98}
- 100%{transform:translate3d(0,47%,0) rotate(0deg) scale(.965);opacity:0}
+@keyframes v77RibbonVertical{
+ 0%,16%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
+ 30%{transform:translate3d(0,.5%,0) rotate(0deg) scale(.999);opacity:1}
+ 44%{transform:translate3d(0,2%,0) rotate(0deg) scale(.996);opacity:1}
+ 58%{transform:translate3d(0,5%,0) rotate(0deg) scale(.992);opacity:1}
+ 72%{transform:translate3d(0,10%,0) rotate(0deg) scale(.987);opacity:1}
+ 84%{transform:translate3d(0,18%,0) rotate(0deg) scale(.981);opacity:1}
+ 92%{transform:translate3d(0,27%,0) rotate(0deg) scale(.974);opacity:.97}
+ 97%{transform:translate3d(0,36%,0) rotate(0deg) scale(.968);opacity:.62}
+ 100%{transform:translate3d(0,42%,0) rotate(0deg) scale(.964);opacity:0}
 }
 /* Keep both side flaps perfectly symmetric so the left and right edges beside the card match. */
 #intro[data-env-style="artwork"] .nt-fold{box-shadow:none!important;outline:none!important}
@@ -1026,6 +1028,12 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 #intro[data-env-style="artwork"] .nt-right-door::after{border:0!important;box-shadow:none!important;outline:none!important}
 #intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-right-door::before{opacity:1!important}
 #intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::after{opacity:1!important}
+#intro[data-env-style="artwork"] .nt-left-door,#intro[data-env-style="artwork"] .nt-right-door{overflow:hidden!important}
+#intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::before,#intro[data-env-style="artwork"] .nt-right-door::after{inset:-1px!important;transform-style:preserve-3d!important}
+#intro[data-env-style="artwork"] .nt-left-door::before{background-position:left center!important}
+#intro[data-env-style="artwork"] .nt-right-door::before{background-position:calc(100% + 1px) center!important}
+#intro[data-env-style="artwork"] .nt-left-door::after{background-position:center,left center!important}
+#intro[data-env-style="artwork"] .nt-right-door::after{background-position:center,calc(100% + 1px) center!important}
 #intro[data-env-style="artwork"].nt-doors .nt-left-door{transform:rotateY(-151deg)!important;opacity:1!important}
 #intro[data-env-style="artwork"].nt-doors .nt-right-door{transform:rotateY(151deg)!important;opacity:1!important}
 /* Compact note-only music bubble, close to the bottom with safe-area protection. */
@@ -1469,20 +1477,20 @@ function openIntro(){
     e.style.width=(16+Math.random()*22)+'px';e.style.height=(18+Math.random()*22)+'px';
     petals.append(e);
   }
-  $('introTip').textContent='กำลังค่อย ๆ คลายริบบิ้นและเปิดคำเชิญ…';
+  $('introTip').textContent='กำลังค่อย ๆ คลายริบบิ้นและเปิดคำเชิญอย่างนุ่มนวล…';
   $('introTip').hidden=false;
   $('introCardHint').hidden=true;
   stage.classList.add('nt-untie');
   // Wait until the pull, untying and ribbon slip have finished before opening.
-  deferIntro(()=>stage.classList.add('nt-flap'),4400);
-  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?6200:mode==='sides'?4700:6300);
+  deferIntro(()=>stage.classList.add('nt-flap'),5100);
+  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?7000:mode==='sides'?5400:7100);
   // At no time is the invitation enlarged: it stays the size of the envelope.
-  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?8600:mode==='sides'?7200:8750);
+  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?9800:mode==='sides'?8200:9950);
   deferIntro(()=>{
     stage.classList.add('nt-card-ready');stage.dataset.awaitTap='1';
     $('introTip').hidden=true;$('introCardHint').hidden=false;
     $('introCardHint').textContent='แตะการ์ดเพื่อดูรายละเอียดงาน';
-  },mode==='sides'?8900:10150);
+  },mode==='sides'?9600:11400);
 }
 function finishIntroFromCard(){
   const stage=$('intro');if(stage.dataset.awaitTap!=='1')return;
