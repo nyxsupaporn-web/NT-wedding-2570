@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f9f8f4">
-<!-- NT Wedding V7.9: slower bow, broader front veil, forced symmetric side edges -->
+<!-- NT Wedding V7.4: bow slip, centered divider, feathered crest and note-only music -->
 <meta name="description" content="การ์ดเชิญงานมงคลสมรสและขึ้นบ้านใหม่ Nick & Toek · 15 พฤษภาคม 2570">
 <title>NICK & TOEK · Our Wedding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -956,8 +956,8 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 @media(max-width:350px){.preset-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 </style>
-<style id="nt-v75-fixes">
-/* V7.6 · targeted fixes from 24 November user feedback */
+<style id="nt-v74-fixes">
+/* V7.4 · targeted fixes from 24 November user feedback */
 /* No decorative art to either side of the crest; keep the one centered ornament only. */
 #intro[data-env-style="artwork"] .nt-cover-flourishes .nt-crest-line{display:none!important}
 #intro[data-env-style="artwork"] .nt-cover-flourishes{
@@ -974,93 +974,47 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
   width:auto;max-width:82%;max-height:31px;object-fit:contain;
   margin-top:-5px;transform:scale(1.14);transform-origin:50% 0;
 }
-/* V7.9: slower bow to the envelope bottom, broader front veil, and forced symmetric side edges. */
+/* Seamless oval feathering covers crest, name and middle flourish while leaving corner roses intact.
+   Avoid any solid rectangular patch with an abrupt edge. */
 #intro[data-env-style="artwork"] .nt-crest-seam-veil{
- left:11%!important;top:-3%!important;width:78%!important;height:60%!important;
+ left:25.5%!important;top:2.8%!important;width:49%!important;height:47.8%!important;
  background:
-   radial-gradient(ellipse 63% 44% at 50% 29%,rgba(255,253,249,.60) 0%,rgba(255,253,249,.55) 29%,rgba(255,253,249,.38) 54%,rgba(255,253,249,.18) 76%,transparent 100%),
-   radial-gradient(ellipse 58% 30% at 50% 55%,rgba(255,253,249,.40) 0%,rgba(255,253,249,.24) 48%,rgba(255,253,249,.10) 74%,transparent 100%),
-   radial-gradient(ellipse 40% 17% at 50% 74%,rgba(255,253,249,.24) 0%,rgba(255,253,249,.10) 56%,transparent 100%),
-   radial-gradient(ellipse 42% 18% at 50% 13%,rgba(255,255,255,.18) 0%,rgba(255,255,255,.07) 52%,transparent 100%)!important;
- filter:blur(9px)!important;opacity:1;visibility:visible;border-radius:999px;
- -webkit-mask-image:none!important;mask-image:none!important;
- transition:opacity 1.08s ease,visibility 0s linear 0s!important;
+  radial-gradient(ellipse 66% 65% at 50% 50%,rgba(255,253,249,.985) 0%,rgba(255,253,249,.97) 49%,rgba(255,253,249,.76) 64%,rgba(255,253,249,.20) 82%,transparent 100%),
+  radial-gradient(ellipse 57% 30% at 50% 78%,rgba(255,253,249,.88) 0%,rgba(255,253,249,.44) 50%,transparent 100%)!important;
+ filter:blur(9px)!important;opacity:1;
+ -webkit-mask-image:radial-gradient(ellipse 78% 72% at 50% 49%,#000 0 57%,rgba(0,0,0,.65) 70%,transparent 100%)!important;
+ mask-image:radial-gradient(ellipse 78% 72% at 50% 49%,#000 0 57%,rgba(0,0,0,.65) 70%,transparent 100%)!important;
 }
-/* Keep the feathered glow visible while the envelope is still closed, then let it fade away with the crest before the card appears. */
-#intro[data-env-style="artwork"].nt-flap .nt-crest-seam-veil,
-#intro[data-env-style="artwork"].nt-doors .nt-crest-seam-veil{
- opacity:0!important;visibility:hidden;transition:opacity 1s ease,visibility 0s linear 1s!important;
-}
-#intro[data-env-style="artwork"].nt-card-reveal .nt-crest-seam-veil,
-#intro[data-env-style="artwork"].nt-card-ready .nt-crest-seam-veil{
- display:none!important;
-}
+/* The entire bow slides off like the reference (not five disjoint pieces).
+   A gentle tension release is followed by a curved gravity fall. */
 #intro[data-env-style="artwork"] .nt-bow.nt-ribbon-split>.nt-bow-image{opacity:1!important}
 #intro[data-env-style="artwork"] .nt-bow .nt-ribbon-part{display:none!important}
 #intro[data-env-style="artwork"].nt-untie .nt-bow{
- animation:v79RibbonVertical 5.35s cubic-bezier(.23,.05,.29,1) both!important;
- transform-origin:50% 38%!important;will-change:transform,opacity;
+ animation:v74RibbonSlip 3.05s cubic-bezier(.22,.02,.35,1) both!important;
+ transform-origin:51% 36%!important;will-change:transform,opacity;
 }
-@keyframes v79RibbonVertical{
- 0%,18%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
- 32%{transform:translate3d(0,.35%,0) rotate(0deg) scale(.999);opacity:1}
- 46%{transform:translate3d(0,1.4%,0) rotate(0deg) scale(.996);opacity:1}
- 60%{transform:translate3d(0,4.2%,0) rotate(0deg) scale(.992);opacity:1}
- 74%{transform:translate3d(0,9.3%,0) rotate(0deg) scale(.987);opacity:1}
- 86%{transform:translate3d(0,18.5%,0) rotate(0deg) scale(.980);opacity:1}
- 94%{transform:translate3d(0,31%,0) rotate(0deg) scale(.972);opacity:1}
- 97%{transform:translate3d(0,40%,0) rotate(0deg) scale(.966);opacity:1}
- 99%{transform:translate3d(0,47%,0) rotate(0deg) scale(.961);opacity:.50}
- 100%{transform:translate3d(0,50%,0) rotate(0deg) scale(.959);opacity:0}
+@keyframes v74RibbonSlip{
+ 0%,10%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
+ 23%{transform:translate3d(1.5%,1%,0) rotate(-1deg) scale(.99,1.01);opacity:1}
+ 40%{transform:translate3d(4%,6%,0) rotate(1deg) scale(.96,1);opacity:1}
+ 58%{transform:translate3d(8%,13%,0) rotate(3deg) scale(.92,.97);opacity:1}
+ 74%{transform:translate3d(12%,27vh,0) rotate(6deg) scale(.88,.93);opacity:1}
+ 89%{transform:translate3d(17%,44vh,0) rotate(9deg) scale(.86);opacity:.98}
+ 100%{transform:translate3d(19%,76vh,0) rotate(12deg) scale(.83);opacity:0}
 }
-/* Keep both side flaps perfectly symmetric so the left and right edges beside the card match. */
-#intro[data-env-style="artwork"] .nt-fold{box-shadow:none!important;outline:none!important}
-#intro[data-env-style="artwork"] .nt-left-door,
+/* Remove the right-hand edge/shadow that looks like a vertical bar as the door turns.
+   Hide only the back-facing last sliver, AFTER the opening movement completes. */
+#intro[data-env-style="artwork"] .nt-fold{
+ box-shadow:none!important;outline:none!important;
+ backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important;
+}
 #intro[data-env-style="artwork"] .nt-right-door{
- width:50%!important;clip-path:none!important;-webkit-clip-path:none!important;
- transform-style:preserve-3d!important;-webkit-transform-style:preserve-3d!important;
- backface-visibility:visible!important;-webkit-backface-visibility:visible!important;
- opacity:1!important;transition:transform 3.05s cubic-bezier(.22,.55,.11,1)!important;
+ clip-path:inset(0 1px 0 0);-webkit-clip-path:inset(0 1px 0 0);
+ transition:transform 2.6s cubic-bezier(.23,.6,.13,1),opacity .20s linear 2.32s!important;
 }
-#intro[data-env-style="artwork"] .nt-left-door{left:0!important;right:auto!important;transform-origin:0 50%!important}
-#intro[data-env-style="artwork"] .nt-right-door{right:0!important;left:auto!important;transform-origin:100% 50%!important}
-#intro[data-env-style="artwork"] .nt-left-door::before,
-#intro[data-env-style="artwork"] .nt-right-door::before,
-#intro[data-env-style="artwork"] .nt-left-door::after,
-#intro[data-env-style="artwork"] .nt-right-door::after{border:0!important;box-shadow:none!important;outline:none!important}
-#intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-right-door::before{opacity:1!important}
-#intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::after{opacity:1!important}
-#intro[data-env-style="artwork"] .nt-left-door,#intro[data-env-style="artwork"] .nt-right-door{overflow:hidden!important}
-#intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::before,#intro[data-env-style="artwork"] .nt-right-door::after{inset:0!important;transform-style:preserve-3d!important}
-#intro[data-env-style="artwork"] .nt-left-door::before{background-position:left center!important}
-#intro[data-env-style="artwork"] .nt-right-door::before{background-position:right center!important}
-#intro[data-env-style="artwork"] .nt-left-door::after{background-position:center,left center!important}
-#intro[data-env-style="artwork"] .nt-right-door::after{background-position:center,right center!important}
-#intro[data-env-style="artwork"] .nt-scene::before,
-#intro[data-env-style="artwork"] .nt-scene::after{
- content:"";position:absolute;top:0;bottom:0;width:12px;z-index:14;pointer-events:none;opacity:0;
- transition:opacity .45s ease;
+#intro[data-env-style="artwork"].nt-doors .nt-right-door{
+ transform:rotateY(180deg) translateZ(-2px)!important;opacity:0!important;
 }
-#intro[data-env-style="artwork"] .nt-scene::before{
- left:2px;
- background:linear-gradient(to right,rgba(166,145,118,.28) 0%,rgba(255,250,244,.96) 38%,rgba(255,250,244,.96) 68%,rgba(204,185,160,.34) 100%);
- border-left:1px solid rgba(165,144,118,.30);border-right:1px solid rgba(255,255,255,.78);
-}
-#intro[data-env-style="artwork"] .nt-scene::after{
- right:2px;
- background:linear-gradient(to left,rgba(166,145,118,.28) 0%,rgba(255,250,244,.96) 38%,rgba(255,250,244,.96) 68%,rgba(204,185,160,.34) 100%);
- border-right:1px solid rgba(165,144,118,.30);border-left:1px solid rgba(255,255,255,.78);
-}
-#intro.nt-doors[data-env-style="artwork"] .nt-scene::before,
-#intro.nt-doors[data-env-style="artwork"] .nt-scene::after,
-#intro.nt-card-reveal[data-env-style="artwork"] .nt-scene::before,
-#intro.nt-card-reveal[data-env-style="artwork"] .nt-scene::after,
-#intro.nt-card-ready[data-env-style="artwork"] .nt-scene::before,
-#intro.nt-card-ready[data-env-style="artwork"] .nt-scene::after{opacity:1}
-#intro.nt-card-picked[data-env-style="artwork"] .nt-scene::before,
-#intro.nt-card-picked[data-env-style="artwork"] .nt-scene::after{opacity:0}
-#intro[data-env-style="artwork"].nt-doors .nt-left-door{transform:rotateY(-151deg)!important;opacity:1!important}
-#intro[data-env-style="artwork"].nt-doors .nt-right-door{transform:rotateY(151deg)!important;opacity:1!important}
 /* Compact note-only music bubble, close to the bottom with safe-area protection. */
 .nt-floating-music{
  right:max(14px,calc((100vw - 540px)/2 + 13px))!important;
@@ -1502,20 +1456,20 @@ function openIntro(){
     e.style.width=(16+Math.random()*22)+'px';e.style.height=(18+Math.random()*22)+'px';
     petals.append(e);
   }
-  $('introTip').textContent='กำลังค่อย ๆ คลายริบบิ้นและเปิดคำเชิญ…';
+  $('introTip').textContent='กำลังคลายริบบิ้นและเปิดคำเชิญ…';
   $('introTip').hidden=false;
   $('introCardHint').hidden=true;
   stage.classList.add('nt-untie');
   // Wait until the pull, untying and ribbon slip have finished before opening.
-  deferIntro(()=>stage.classList.add('nt-flap'),5650);
-  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?7700:mode==='sides'?5950:7800);
+  deferIntro(()=>stage.classList.add('nt-flap'),3300);
+  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?4600:mode==='sides'?3400:4700);
   // At no time is the invitation enlarged: it stays the size of the envelope.
-  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?10650:mode==='sides'?8900:10800);
+  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?7350:mode==='sides'?6300:7500);
   deferIntro(()=>{
     stage.classList.add('nt-card-ready');stage.dataset.awaitTap='1';
     $('introTip').hidden=true;$('introCardHint').hidden=false;
     $('introCardHint').textContent='แตะการ์ดเพื่อดูรายละเอียดงาน';
-  },mode==='sides'?10300:12200);
+  },mode==='sides'?7950:9050);
 }
 function finishIntroFromCard(){
   const stage=$('intro');if(stage.dataset.awaitTap!=='1')return;
