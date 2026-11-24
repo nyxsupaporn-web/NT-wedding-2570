@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#f9f8f4">
-<!-- NT Wedding V7.5: vertical bow, lighter fading veil, symmetrical envelope doors -->
+<!-- NT Wedding V7.6: slower vertical bow, feathered veil restored, symmetrical envelope doors -->
 <meta name="description" content="การ์ดเชิญงานมงคลสมรสและขึ้นบ้านใหม่ Nick & Toek · 15 พฤษภาคม 2570">
 <title>NICK & TOEK · Our Wedding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -957,7 +957,7 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 
 </style>
 <style id="nt-v75-fixes">
-/* V7.5 · targeted fixes from 24 November user feedback */
+/* V7.6 · targeted fixes from 24 November user feedback */
 /* No decorative art to either side of the crest; keep the one centered ornament only. */
 #intro[data-env-style="artwork"] .nt-cover-flourishes .nt-crest-line{display:none!important}
 #intro[data-env-style="artwork"] .nt-cover-flourishes{
@@ -976,17 +976,18 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 }
 /* V7.5: lighter feathering, strictly vertical bow and symmetrical hinged doors. */
 #intro[data-env-style="artwork"] .nt-crest-seam-veil{
- left:18%!important;top:-4%!important;width:64%!important;height:60%!important;
- background:radial-gradient(ellipse 47% 43% at 50% 47%,rgba(255,253,249,.72) 0%,rgba(255,253,249,.60) 30%,rgba(255,253,249,.36) 57%,rgba(255,253,249,.12) 80%,transparent 100%)!important;
- filter:blur(10px)!important;opacity:1;visibility:visible;
+ left:20%!important;top:1%!important;width:60%!important;height:44%!important;
+ background:
+   radial-gradient(ellipse 49% 38% at 50% 41%,rgba(255,253,249,.58) 0%,rgba(255,253,249,.50) 36%,rgba(255,253,249,.28) 63%,rgba(255,253,249,.08) 82%,transparent 100%),
+   radial-gradient(ellipse 41% 22% at 50% 22%,rgba(255,255,255,.26) 0%,rgba(255,255,255,.08) 52%,transparent 100%)!important;
+ filter:blur(8px)!important;opacity:1;visibility:visible;border-radius:999px;
  -webkit-mask-image:none!important;mask-image:none!important;
- transition:opacity .8s ease,visibility 0s linear 0s!important;
+ transition:opacity .95s ease,visibility 0s linear 0s!important;
 }
-/* Match the crest fade; explicitly beat artwork selector specificity, then remove
-   the veil from painting entirely before the invitation starts to reveal. */
+/* Keep the feathered glow visible while the envelope is still closed, then let it fade away with the crest before the card appears. */
 #intro[data-env-style="artwork"].nt-flap .nt-crest-seam-veil,
 #intro[data-env-style="artwork"].nt-doors .nt-crest-seam-veil{
- opacity:0!important;visibility:hidden;transition:opacity .8s ease,visibility 0s linear .8s!important;
+ opacity:0!important;visibility:hidden;transition:opacity .9s ease,visibility 0s linear .9s!important;
 }
 #intro[data-env-style="artwork"].nt-card-reveal .nt-crest-seam-veil,
 #intro[data-env-style="artwork"].nt-card-ready .nt-crest-seam-veil{
@@ -995,31 +996,36 @@ body.locked .nt-floating-music{opacity:0;visibility:hidden}
 #intro[data-env-style="artwork"] .nt-bow.nt-ribbon-split>.nt-bow-image{opacity:1!important}
 #intro[data-env-style="artwork"] .nt-bow .nt-ribbon-part{display:none!important}
 #intro[data-env-style="artwork"].nt-untie .nt-bow{
- animation:v75RibbonVertical 3.05s cubic-bezier(.22,.02,.35,1) both!important;
- transform-origin:50% 50%!important;will-change:transform,opacity;
+ animation:v76RibbonVertical 4.15s cubic-bezier(.22,.05,.28,1) both!important;
+ transform-origin:50% 38%!important;will-change:transform,opacity;
 }
-@keyframes v75RibbonVertical{
- 0%,10%{transform:translate3d(0,0,0);opacity:1}
- 23%{transform:translate3d(0,1%,0);opacity:1}
- 40%{transform:translate3d(0,6%,0);opacity:1}
- 58%{transform:translate3d(0,13%,0);opacity:1}
- 74%{transform:translate3d(0,27vh,0);opacity:1}
- 89%{transform:translate3d(0,44vh,0);opacity:.98}
- 100%{transform:translate3d(0,76vh,0);opacity:0}
+@keyframes v76RibbonVertical{
+ 0%,14%{transform:translate3d(0,0,0) rotate(0deg) scale(1);opacity:1}
+ 28%{transform:translate3d(0,.6%,0) rotate(0deg) scale(.998);opacity:1}
+ 44%{transform:translate3d(0,3%,0) rotate(0deg) scale(.994);opacity:1}
+ 60%{transform:translate3d(0,8%,0) rotate(0deg) scale(.988);opacity:1}
+ 76%{transform:translate3d(0,17%,0) rotate(0deg) scale(.982);opacity:1}
+ 88%{transform:translate3d(0,29%,0) rotate(0deg) scale(.975);opacity:1}
+ 95%{transform:translate3d(0,41%,0) rotate(0deg) scale(.968);opacity:.98}
+ 100%{transform:translate3d(0,47%,0) rotate(0deg) scale(.965);opacity:0}
 }
-/* Both doors retain their reverse faces; do not clip or hide the right hinge. */
+/* Keep both side flaps perfectly symmetric so the left and right edges beside the card match. */
 #intro[data-env-style="artwork"] .nt-fold{box-shadow:none!important;outline:none!important}
 #intro[data-env-style="artwork"] .nt-left-door,
 #intro[data-env-style="artwork"] .nt-right-door{
- clip-path:none!important;-webkit-clip-path:none!important;
+ width:50%!important;clip-path:none!important;-webkit-clip-path:none!important;
  transform-style:preserve-3d!important;-webkit-transform-style:preserve-3d!important;
  backface-visibility:visible!important;-webkit-backface-visibility:visible!important;
- opacity:1!important;transition:transform 3s cubic-bezier(.22,.55,.11,1)!important;
+ opacity:1!important;transition:transform 3.05s cubic-bezier(.22,.55,.11,1)!important;
 }
+#intro[data-env-style="artwork"] .nt-left-door{left:0!important;transform-origin:0 50%!important}
+#intro[data-env-style="artwork"] .nt-right-door{right:0!important;transform-origin:100% 50%!important}
 #intro[data-env-style="artwork"] .nt-left-door::before,
 #intro[data-env-style="artwork"] .nt-right-door::before,
 #intro[data-env-style="artwork"] .nt-left-door::after,
 #intro[data-env-style="artwork"] .nt-right-door::after{border:0!important;box-shadow:none!important;outline:none!important}
+#intro[data-env-style="artwork"] .nt-left-door::before,#intro[data-env-style="artwork"] .nt-right-door::before{opacity:1!important}
+#intro[data-env-style="artwork"] .nt-left-door::after,#intro[data-env-style="artwork"] .nt-right-door::after{opacity:1!important}
 #intro[data-env-style="artwork"].nt-doors .nt-left-door{transform:rotateY(-151deg)!important;opacity:1!important}
 #intro[data-env-style="artwork"].nt-doors .nt-right-door{transform:rotateY(151deg)!important;opacity:1!important}
 /* Compact note-only music bubble, close to the bottom with safe-area protection. */
@@ -1463,20 +1469,20 @@ function openIntro(){
     e.style.width=(16+Math.random()*22)+'px';e.style.height=(18+Math.random()*22)+'px';
     petals.append(e);
   }
-  $('introTip').textContent='กำลังคลายริบบิ้นและเปิดคำเชิญ…';
+  $('introTip').textContent='กำลังค่อย ๆ คลายริบบิ้นและเปิดคำเชิญ…';
   $('introTip').hidden=false;
   $('introCardHint').hidden=true;
   stage.classList.add('nt-untie');
   // Wait until the pull, untying and ribbon slip have finished before opening.
-  deferIntro(()=>stage.classList.add('nt-flap'),3300);
-  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?4600:mode==='sides'?3400:4700);
+  deferIntro(()=>stage.classList.add('nt-flap'),4400);
+  deferIntro(()=>stage.classList.add('nt-doors'),mode==='top-sides'?6200:mode==='sides'?4700:6300);
   // At no time is the invitation enlarged: it stays the size of the envelope.
-  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?7350:mode==='sides'?6300:7500);
+  deferIntro(()=>stage.classList.add('nt-card-reveal'),mode==='top-sides'?8600:mode==='sides'?7200:8750);
   deferIntro(()=>{
     stage.classList.add('nt-card-ready');stage.dataset.awaitTap='1';
     $('introTip').hidden=true;$('introCardHint').hidden=false;
     $('introCardHint').textContent='แตะการ์ดเพื่อดูรายละเอียดงาน';
-  },mode==='sides'?7950:9050);
+  },mode==='sides'?8900:10150);
 }
 function finishIntroFromCard(){
   const stage=$('intro');if(stage.dataset.awaitTap!=='1')return;
